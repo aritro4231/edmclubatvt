@@ -19,7 +19,7 @@ Update `src/data.js` for social links, membership, events, board members, and re
 
 ## Club Radio
 
-`src/components/ClubRadio.jsx` provides five switchable recommendation stations from `radioStations` in `src/data.js`. Station tabs support mouse, touch, and keyboard navigation (arrows, Home, End). The server reads the actual public station page and preserves its 50-track queue order. The widget plays individual tracks from that queue; it does not substitute the artist's uploaded catalog.
+`src/components/ClubRadio.jsx` provides five switchable channels from `radioStations` in `src/data.js`. Ari plays up to 10 recent public liked tracks from `soundcloud.com/ari-364456121/likes`, in the page's order. This public page exposes a limited selection, not the entire likes library; no visitor login is needed. The server validates the profile and resolves each public track page. The other four DJs retain their actual 50-track recommendation station queues. Station tabs support mouse, touch, and keyboard navigation (arrows, Home, End). The widget plays individual tracks from the selected queue; it does not substitute the artist's uploaded catalog.
 
 `SoundCloudRadioPlayer.jsx` connects Play/Pause, seeking, volume, and current-track display to SoundCloud's official Widget API. Next/Previous and automatic advancement follow the station queue. Switching stations stops the previous player. Queues refresh from SoundCloud with a 10-minute server cache; a saved real queue is used if the station page cannot be fetched. No SoundCloud app credentials are required. The visible embedded player preserves attribution.
 

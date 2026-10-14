@@ -1,211 +1,53 @@
 {
   "ari": {
     "id": "ari",
-    "sourceUrl": "https://soundcloud.com/discover/sets/artist-stations:1420286394",
-    "title": "ari",
+    "sourceUrl": "https://soundcloud.com/ari-364456121/likes",
+    "title": "Ari’s likes",
+    "kind": "likes",
     "tracks": [
       {
-        "id": "2182671587",
-        "embedUrl": "https://api.soundcloud.com/tracks/2182671587"
+        "id": "2312646296",
+        "embedUrl": "https://api.soundcloud.com/tracks/2312646296"
       },
       {
-        "id": "2015131595",
-        "embedUrl": "https://api.soundcloud.com/tracks/2015131595"
+        "id": "2269716887",
+        "embedUrl": "https://api.soundcloud.com/tracks/2269716887"
       },
       {
-        "id": "1951737223",
-        "embedUrl": "https://api.soundcloud.com/tracks/1951737223"
+        "id": "2359423121",
+        "embedUrl": "https://api.soundcloud.com/tracks/2359423121"
       },
       {
-        "id": "2051651280",
-        "embedUrl": "https://api.soundcloud.com/tracks/2051651280"
+        "id": "2381532864",
+        "embedUrl": "https://api.soundcloud.com/tracks/2381532864"
       },
       {
-        "id": "2310967886",
-        "embedUrl": "https://api.soundcloud.com/tracks/2310967886"
+        "id": "2215522715",
+        "embedUrl": "https://api.soundcloud.com/tracks/2215522715"
       },
       {
-        "id": "2236709801",
-        "embedUrl": "https://api.soundcloud.com/tracks/2236709801"
+        "id": "1517272870",
+        "embedUrl": "https://api.soundcloud.com/tracks/1517272870"
       },
       {
-        "id": "2372519219",
-        "embedUrl": "https://api.soundcloud.com/tracks/2372519219"
+        "id": "2100049533",
+        "embedUrl": "https://api.soundcloud.com/tracks/2100049533"
       },
       {
-        "id": "2381659431",
-        "embedUrl": "https://api.soundcloud.com/tracks/2381659431"
+        "id": "2325130916",
+        "embedUrl": "https://api.soundcloud.com/tracks/2325130916"
       },
       {
-        "id": "2377432658",
-        "embedUrl": "https://api.soundcloud.com/tracks/2377432658"
+        "id": "2393189778",
+        "embedUrl": "https://api.soundcloud.com/tracks/2393189778"
       },
       {
-        "id": "2128578123",
-        "embedUrl": "https://api.soundcloud.com/tracks/2128578123"
-      },
-      {
-        "id": "2404596669",
-        "embedUrl": "https://api.soundcloud.com/tracks/2404596669"
-      },
-      {
-        "id": "1824319365",
-        "embedUrl": "https://api.soundcloud.com/tracks/1824319365"
-      },
-      {
-        "id": "618302907",
-        "embedUrl": "https://api.soundcloud.com/tracks/618302907"
-      },
-      {
-        "id": "1729994247",
-        "embedUrl": "https://api.soundcloud.com/tracks/1729994247"
-      },
-      {
-        "id": "2410166112",
-        "embedUrl": "https://api.soundcloud.com/tracks/2410166112"
-      },
-      {
-        "id": "2365290260",
-        "embedUrl": "https://api.soundcloud.com/tracks/2365290260"
-      },
-      {
-        "id": "2253349472",
-        "embedUrl": "https://api.soundcloud.com/tracks/2253349472"
-      },
-      {
-        "id": "2301111878",
-        "embedUrl": "https://api.soundcloud.com/tracks/2301111878"
-      },
-      {
-        "id": "2153453151",
-        "embedUrl": "https://api.soundcloud.com/tracks/2153453151"
-      },
-      {
-        "id": "2333600147",
-        "embedUrl": "https://api.soundcloud.com/tracks/2333600147"
-      },
-      {
-        "id": "1155493699",
-        "embedUrl": "https://api.soundcloud.com/tracks/1155493699"
-      },
-      {
-        "id": "2395407801",
-        "embedUrl": "https://api.soundcloud.com/tracks/2395407801"
-      },
-      {
-        "id": "2059924792",
-        "embedUrl": "https://api.soundcloud.com/tracks/2059924792"
-      },
-      {
-        "id": "239397463",
-        "embedUrl": "https://api.soundcloud.com/tracks/239397463"
-      },
-      {
-        "id": "2239167710",
-        "embedUrl": "https://api.soundcloud.com/tracks/2239167710"
-      },
-      {
-        "id": "1482153217",
-        "embedUrl": "https://api.soundcloud.com/tracks/1482153217"
-      },
-      {
-        "id": "2307989960",
-        "embedUrl": "https://api.soundcloud.com/tracks/2307989960"
-      },
-      {
-        "id": "2390703741",
-        "embedUrl": "https://api.soundcloud.com/tracks/2390703741"
-      },
-      {
-        "id": "1356564460",
-        "embedUrl": "https://api.soundcloud.com/tracks/1356564460"
-      },
-      {
-        "id": "2301578999",
-        "embedUrl": "https://api.soundcloud.com/tracks/2301578999"
-      },
-      {
-        "id": "1244867044",
-        "embedUrl": "https://api.soundcloud.com/tracks/1244867044"
-      },
-      {
-        "id": "1676068626",
-        "embedUrl": "https://api.soundcloud.com/tracks/1676068626"
-      },
-      {
-        "id": "2244241697",
-        "embedUrl": "https://api.soundcloud.com/tracks/2244241697"
-      },
-      {
-        "id": "2295434603",
-        "embedUrl": "https://api.soundcloud.com/tracks/2295434603"
-      },
-      {
-        "id": "2123993775",
-        "embedUrl": "https://api.soundcloud.com/tracks/2123993775"
-      },
-      {
-        "id": "2126680389",
-        "embedUrl": "https://api.soundcloud.com/tracks/2126680389"
-      },
-      {
-        "id": "2090100654",
-        "embedUrl": "https://api.soundcloud.com/tracks/2090100654"
-      },
-      {
-        "id": "2218178051",
-        "embedUrl": "https://api.soundcloud.com/tracks/2218178051"
-      },
-      {
-        "id": "2183162135",
-        "embedUrl": "https://api.soundcloud.com/tracks/2183162135"
-      },
-      {
-        "id": "2311081511",
-        "embedUrl": "https://api.soundcloud.com/tracks/2311081511"
-      },
-      {
-        "id": "2207728275",
-        "embedUrl": "https://api.soundcloud.com/tracks/2207728275"
-      },
-      {
-        "id": "1787438260",
-        "embedUrl": "https://api.soundcloud.com/tracks/1787438260"
-      },
-      {
-        "id": "2338643531",
-        "embedUrl": "https://api.soundcloud.com/tracks/2338643531"
-      },
-      {
-        "id": "2328111539",
-        "embedUrl": "https://api.soundcloud.com/tracks/2328111539"
-      },
-      {
-        "id": "1594484085",
-        "embedUrl": "https://api.soundcloud.com/tracks/1594484085"
-      },
-      {
-        "id": "1867594485",
-        "embedUrl": "https://api.soundcloud.com/tracks/1867594485"
-      },
-      {
-        "id": "2385855129",
-        "embedUrl": "https://api.soundcloud.com/tracks/2385855129"
-      },
-      {
-        "id": "2120716203",
-        "embedUrl": "https://api.soundcloud.com/tracks/2120716203"
-      },
-      {
-        "id": "2393594643",
-        "embedUrl": "https://api.soundcloud.com/tracks/2393594643"
-      },
-      {
-        "id": "2205348883",
-        "embedUrl": "https://api.soundcloud.com/tracks/2205348883"
+        "id": "2400774321",
+        "embedUrl": "https://api.soundcloud.com/tracks/2400774321"
       }
     ],
-    "fetchedAt": "2026-10-14T21:34:35.790Z"
+    "fetchedAt": "2026-10-14T22:30:55.904Z",
+    "stale": false
   },
   "beaux": {
     "id": "beaux",
