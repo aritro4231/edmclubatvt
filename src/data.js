@@ -1,19 +1,17 @@
-// Edit club content here. Put new images in public/assets and use /assets/filename.
+﻿// Edit club content here. Put new images in public/assets and use /assets/filename.
 export const club = {
   name: 'EDM Club at Virginia Tech',
   logo: '/assets/edm-club-logo.png',
   joinUrl: 'https://gobblerconnect.vt.edu/organization/edmclubatvt',
 };
 
-// The supplied station IDs identify the same SoundCloud artists. Embed each
-// artist's uploaded tracks, which support playback through the official widget.
-// Generated recommendation stations are not supported by SoundCloud's widget.
+// Radio queues come from the actual public recommendation-station pages.
 export const radioStations = [
-  { id: 'ari', name: 'Ari', image: '/assets/ari-updated.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1420286394', embedUrl: 'https://api.soundcloud.com/users/1420286394' },
-  { id: 'beaux', name: 'Beaux', image: '/assets/levi.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1380249472', embedUrl: 'https://api.soundcloud.com/users/1380249472' },
-  { id: 'hovanez', name: 'Hovanez', image: '/assets/john-bedeian.png', url: 'https://soundcloud.com/discover/sets/artist-stations:263550940', embedUrl: 'https://api.soundcloud.com/users/263550940' },
-  { id: 'sofasux', name: 'Sofasux', image: '/assets/sophia.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1099633732', embedUrl: 'https://api.soundcloud.com/users/1099633732' },
-  { id: 'sinverze', name: 'Sinverze', image: '/assets/maxim.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1067107096', embedUrl: 'https://api.soundcloud.com/users/1067107096' },
+  { id: 'ari', name: 'Ari', image: '/assets/ari-updated.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1420286394' },
+  { id: 'beaux', name: 'Beaux', image: '/assets/levi.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1380249472' },
+  { id: 'hovanez', name: 'Hovanez', image: '/assets/john-bedeian.png', url: 'https://soundcloud.com/discover/sets/artist-stations:263550940' },
+  { id: 'sofasux', name: 'Sofasux', image: '/assets/sophia.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1099633732' },
+  { id: 'sinverze', name: 'Sinverze', image: '/assets/maxim.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1067107096' },
 ];
 
 export const socials = [
@@ -49,3 +47,4 @@ export const releases = [
   { id: 'afterglow', title: 'Afterglow (Club Edit)', artist: 'Nova Rae', artwork: null, url: null, color: 'var(--cyan)' },
   { id: 'static-bloom', title: 'Static Bloom', artist: 'rrhythm', artwork: null, url: null, color: 'var(--violet)' },
 ];
+

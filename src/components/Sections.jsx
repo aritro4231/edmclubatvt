@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { board, club, events, releases, socials } from '../data';
+﻿import { useState } from 'react';
+import { board, club, events, socials } from '../data';
 import SocialIcon from './SocialIcon';
 
 function ExternalLink({ children, ...props }) {
@@ -71,24 +71,6 @@ export function Board() {
   </section>;
 }
 
-function ReleaseRow({ release, index }) {
-  const soundCloud = release.url && /^https:\/\/(www\.)?soundcloud\.com\//i.test(release.url);
-  return <article className="release-entry"><div className="release-row">
-    <span className="release-row__num">{String(index + 1).padStart(2, '0')}</span>
-    <AssetImage className="release-row__art" src={release.artwork} alt="" fallback={<span className="release-art" aria-hidden="true">♫</span>} />
-    <div className="release-row__meta"><h3 className="release-row__title">{release.title}</h3><p className="release-row__artist">{release.artist}</p></div>
-    {release.url ? <ExternalLink className="release-row__play" href={release.url} aria-label={`Listen to ${release.title} by ${release.artist}`}><span aria-hidden="true">↗</span></ExternalLink> : <span className="release-status">Preview</span>}
-  </div>{soundCloud && <iframe className="soundcloud-player" title={`${release.title} SoundCloud player`} loading="lazy" allow="autoplay" src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(release.url)}&auto_play=false&show_comments=false&show_user=true&visual=false`} />}</article>;
-}
-
-export function Releases() {
-  const hasLiveReleases = releases.some(release => release.url);
-  return <section id="releases">
-    <SectionHeading eyebrow="Fresh IDs" title="New releases from our members.">{hasLiveReleases ? 'Original tracks and sets made by club members. Show your support.' : 'A preview of our release showcase. Member tracks and listening links are coming soon.'}</SectionHeading>
-    <div className="release-list reveal-stagger">{releases.map((release, index) => <ReleaseRow key={release.id} release={release} index={index} />)}</div>
-  </section>;
-}
-
 export function Join() {
   return <section className="join" id="join"><div className="eyebrow reveal" style={{ justifyContent: 'center' }}>Membership</div><h2 className="join__title reveal">Come make <span className="accent">noise</span> with us.</h2><p className="join__sub reveal">No experience needed, just show up. Sign up through GobblerConnect to get on the list for meetings and events.</p><ExternalLink href={club.joinUrl} className="btn btn--solid reveal">Join on GobblerConnect <span aria-hidden="true">↗</span></ExternalLink></section>;
 }
@@ -96,3 +78,4 @@ export function Join() {
 export function Footer() {
   return <footer><a href="#top">© {new Date().getFullYear()} {club.name}</a><span>Built by the club, for the club.</span></footer>;
 }
+

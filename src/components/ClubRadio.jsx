@@ -1,6 +1,29 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { radioStations } from '../data';
 import SoundCloudRadioPlayer from './SoundCloudRadioPlayer';
+
+function StationChannel({ station, index, total }) {
+  const [queue, setQueue] = useState(null);
+  const [error, setError] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    const controller = new AbortController();
+    setError(false);
+    const timeout = setTimeout(() => { setError(true); controller.abort(); }, 15000);
+    fetch(`/api/radio/${station.id}`, { signal: controller.signal }).then(async response => {
+      if (!response.ok) throw new Error('Station unavailable');
+      const data = await response.json();
+      if (!data.tracks?.length) throw new Error('Station empty');
+      if (!controller.signal.aborted) setQueue(data);
+    }).catch(() => { if (!controller.signal.aborted) setError(true); else if (controller.signal.reason?.name === 'TimeoutError') setError(true); }).finally(() => clearTimeout(timeout));
+    return () => { clearTimeout(timeout); controller.abort(); };
+  }, [station.id, attempt]);
+  if (queue) return <SoundCloudRadioPlayer station={station} queue={queue} index={index} total={total} />;
+  return <div id="radio-panel" className="radio-loading" role="tabpanel" aria-labelledby={`radio-tab-${station.id}`}>
+    <p role="status">{error ? 'This station is temporarily unavailable.' : `Loading ${station.name}’s recommendation station…`}</p>
+    {error && <button type="button" className="btn btn--ghost" onClick={() => setAttempt(attempt + 1)}>Retry station</button>}
+  </div>;
+}
 
 export default function ClubRadio() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -41,7 +64,7 @@ export default function ClubRadio() {
         ><span className="radio-station__number">{String(index + 1).padStart(2, '0')}</span>{item.name}<span className="radio-station__light" aria-hidden="true" /></button>)}
       </div>
 
-      <SoundCloudRadioPlayer key={station.id} station={station} index={selectedIndex} total={radioStations.length} />
+      <StationChannel key={station.id} station={station} index={selectedIndex} total={radioStations.length} />
       <p className="radio-announcement sr-only" role="status" aria-live="polite">{station.name} Radio selected.</p>
     </div>
   </section>;

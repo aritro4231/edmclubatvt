@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite. Create a production build with `npm run build`, or serve that build with `npm run preview`.
+Open the local URL printed by Vite. Create a production build with `npm run build`, or serve that build with `npm run preview`. `npm test` checks station queue parsing/caching and Discord release extraction/access boundaries.
 
 ## Edit content
 
@@ -19,15 +19,17 @@ Update `src/data.js` for social links, membership, events, board members, and re
 
 ## Club Radio
 
-`src/components/ClubRadio.jsx` provides five switchable channels from `radioStations` in `src/data.js`. Station tabs support mouse, touch, and keyboard navigation (arrows, Home, End). Each channel embeds the uploads of the artist identified by the supplied station URL. SoundCloud's generated recommendation station is not supported by its widget; the artist's own tracks and mixes are supported.
+`src/components/ClubRadio.jsx` provides five switchable recommendation stations from `radioStations` in `src/data.js`. Station tabs support mouse, touch, and keyboard navigation (arrows, Home, End). The server reads the actual public station page and preserves its 50-track queue order. The widget plays individual tracks from that queue; it does not substitute the artist's uploaded catalog.
 
-`SoundCloudRadioPlayer.jsx` connects the site's Play/Pause, track navigation, seeking, volume, and current-track display to SoundCloud's official Widget API. Only the selected channel mounts a player; switching removes the previous player and stops its audio. No autoplay or API credentials are required. The visible embedded player preserves SoundCloud attribution and remains usable if custom controls cannot load.
+`SoundCloudRadioPlayer.jsx` connects Play/Pause, seeking, volume, and current-track display to SoundCloud's official Widget API. Next/Previous and automatic advancement follow the station queue. Switching stations stops the previous player. Queues refresh from SoundCloud with a 10-minute server cache; a saved real queue is used if the station page cannot be fetched. No SoundCloud app credentials are required. The visible embedded player preserves attribution.
 
 The supplied logos and six matching board graphics are copied into `public/assets`, so the site does not depend on files outside this project. The homepage uses the smaller club emblem; the chrome logo is retained as an unused asset.
 
 Event dates and venues are preserved from the HTML. Since the dates have no year, the section presents them as highlights. Original event images were missing local screenshots or temporary Discord URLs; local text posters are used until you set each event's `poster` path. Set an event's `url` to link its card to an event page.
 
-Release titles from the HTML are sample content labeled Preview. Set each release's `url` to its actual listening link and replace sample title/artist information. SoundCloud track URLs automatically render an embedded player. Set `artwork` to a local asset path if available.
+Releases now use the confirmed Discord music-self-promo channel. Configure the server-only bot secret using [the setup guide](docs/discord-setup.md). Until access is configured, the feed remains empty. New music links appear automatically, with in-page players where supported.
+
+The existing React/Vite frontend is packaged with an ES-module Worker for `/api/radio/:station` and `/api/releases`. The build embeds frontend assets in the Worker, preserving the supplied images and the original site identity. Backend credentials are never included in the frontend bundle.
 
 The design uses charcoal, white, subtle grain, and chrome branding. Board graphics display their original colors without image filters. The mood reference is not included in the site.
 
