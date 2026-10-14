@@ -48,15 +48,15 @@ export function Socials() {
 
 function EventCard({ event }) {
   const content = <>
-    <AssetImage src={event.poster} className="event-card__poster" alt={`${event.name} poster`} fallback={<div className={`event-poster event-poster--${event.id}`}><span className="event-poster__club">EDM CLUB / VIRGINIA TECH</span><span className="event-poster__type">{event.type}</span><span className="event-poster__name">{event.name}</span><span className="event-poster__date">{event.date}<small>{event.location}</small></span></div>} />
-    <div className="event-card__body"><div className="event-card__date">{event.date} · {event.time}</div><h3 className="event-card__name">{event.name}</h3><p className="event-card__loc">{event.location}</p></div>
+    <div className="event-card__media"><AssetImage src={event.poster} className={`event-card__poster${event.isFlyer ? ' event-card__poster--flyer' : ''}`} alt={event.imageAlt || `${event.name} poster`} fallback={<div className={`event-poster event-poster--${event.id}`}><span className="event-poster__club">EDM CLUB / VIRGINIA TECH</span><span className="event-poster__type">{event.type}</span><span className="event-poster__name">{event.name}</span><span className="event-poster__date">{event.date}<small>{event.location}</small></span></div>} />{event.mediaType === 'reel' && <span className="event-card__reel"><span aria-hidden="true">▶</span> Reel</span>}</div>
+    <div className="event-card__body"><div className="event-card__type">{event.type}</div><div className="event-card__date">{event.date}{event.time && ` · ${event.time}`}</div><h3 className="event-card__name">{event.name}</h3>{event.location && <p className="event-card__loc">{event.location}</p>}{event.description && <p className="event-card__description">{event.description}</p>}{event.url && <span className="event-card__link">{event.mediaType === 'reel' ? 'Watch reel' : 'View on Instagram'} <span aria-hidden="true">↗</span></span>}</div>
   </>;
   return event.url ? <ExternalLink className="event-card" href={event.url}>{content}</ExternalLink> : <article className="event-card">{content}</article>;
 }
 
 export function Events() {
   return <section id="events">
-    <SectionHeading eyebrow="Club highlights" title="Club events.">Shows, workshops, and meetings that bring our community together. Follow our socials for upcoming dates.</SectionHeading>
+    <SectionHeading eyebrow="From Instagram" title="Club events.">Raves, workshops, and moments from @edmclubatvt. Open a post for the full details.</SectionHeading>
     <div className="events-grid reveal-stagger">{events.map(event => <EventCard key={event.id} event={event} />)}</div>
   </section>;
 }

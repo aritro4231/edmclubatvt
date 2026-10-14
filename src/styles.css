@@ -79,7 +79,14 @@ section:not(.hero) { border-top: 1px solid var(--line); }
 .form-card .btn { margin-top: auto; max-width: 100%; }
 .events-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 .event-card { min-width: 0; }
-.event-card__poster { width: 100%; aspect-ratio: 4/5; object-fit: cover; filter: grayscale(1); }
+.event-card__media { position: relative; }
+.event-card__poster { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.event-card__poster--flyer { object-fit: contain; background: var(--void-2); }
+.event-card__reel { position: absolute; right: 12px; bottom: 12px; display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: rgba(0,0,0,.8); color: #fff; font-family: var(--mono); font-size: 12px; text-transform: uppercase; }
+.event-card__type { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+.event-card__description { color: var(--muted); font-size: 14px; margin-top: 12px; }
+.event-card__link { display: inline-flex; align-items: center; gap: 14px; font-family: var(--mono); text-transform: uppercase; font-size: 12px; margin-top: 20px; border-bottom: 1px solid var(--line); padding-bottom: 5px; }
+.event-card:hover .event-card__link { border-color: var(--white); }
 .event-poster { aspect-ratio: 4/5; border: 1px solid var(--line); padding: 20px; background: #111; display: flex; flex-direction: column; overflow: hidden; position: relative; }
 .event-poster::before { content: ''; position: absolute; width: 210px; height: 210px; top: 18%; left: 12%; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; box-shadow: 0 0 0 18px rgba(255,255,255,.04), 0 0 0 38px rgba(255,255,255,.04), 0 0 0 60px rgba(255,255,255,.02); transform: scaleX(.5) rotate(-30deg); }
 .event-poster--production-workshop { background: #242424; }

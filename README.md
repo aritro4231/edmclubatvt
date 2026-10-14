@@ -25,7 +25,7 @@ Update `src/data.js` for social links, membership, events, board members, and re
 
 The supplied logos and six matching board graphics are copied into `public/assets`, so the site does not depend on files outside this project. The homepage uses the smaller club emblem; the chrome logo is retained as an unused asset.
 
-Event dates and venues are preserved from the HTML. Since the dates have no year, the section presents them as highlights. Original event images were missing local screenshots or temporary Discord URLs; local text posters are used until you set each event's `poster` path. Set an event's `url` to link its card to an event page.
+The Events section contains the four newest public Instagram posts imported from `@edmclubatvt` on October 14, 2026. They are ordered by publication date, excluding an older pinned post: White Lies Rave, Production Workshop Recap, After Dark Rave Recap, and the Beaux reel. The flyer’s event date is distinct from the recap/reel publication dates. Full-color images are stored locally in `public/assets/instagram`; every card opens its original post. This is a one-time import, not an automatic Instagram integration.
 
 Releases now use the confirmed Discord music-self-promo channel. Configure the server-only bot secret using [the setup guide](docs/discord-setup.md). Until access is configured, the feed remains empty. New music links appear automatically, with in-page players where supported.
 

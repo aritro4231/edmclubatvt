@@ -25,14 +25,14 @@ export const socials = [
   { name: 'Discord', icon: 'discord', url: 'https://discord.gg/Cy5ee7pwjp', description: 'Chat with members, get event pings, and share tracks.', label: 'Join our server', color: '#5865F2' },
 ];
 
-// Dates are preserved from the HTML. No year was provided, so these are
-// displayed as club highlights rather than claimed to be upcoming events.
-// Set poster to a local asset and url to an event page when available.
+// Four newest Instagram posts imported on October 14, 2026, by publication date.
+// An older pinned post is excluded. Images are local so CDN URLs cannot expire.
+// This is a one-time import; automatic Instagram syncing is not configured.
 export const events = [
-  { id: 'paradigm-shift', name: 'Paradigm Shift', date: 'May 2', time: '8PM–1AM', location: 'Jedass Cafe', type: 'Club show', color: 'var(--magenta)', poster: null, url: null },
-  { id: 'production-workshop', name: 'Music Production Workshop', date: 'Apr 28', time: '6–7PM', location: 'Pamplin 1010', type: 'Workshop', color: 'var(--cyan)', poster: null, url: null },
-  { id: 'election-meeting', name: 'Election Meeting', date: 'Apr 1', time: '6–7PM', location: 'McBryde 321', type: 'Club meeting', color: 'var(--violet)', poster: null, url: null },
-  { id: 'treble-in-paradise', name: 'Treble in Paradise', date: 'Mar 20', time: '8PM–1AM', location: 'The Boardwalk', type: 'Club show', color: 'var(--acid)', poster: null, url: null },
+  { id: 'white-lies-rave', name: 'White Lies Rave', date: 'Oct 16, 2026', time: '8PM–1AM', location: 'DM @edmclubatvt for address', type: 'Club show', description: 'Members free · Non-members $5. Free white tees while supplies last.', poster: '/assets/instagram/instagram-Dec1NlWkQDh.jpg', imageAlt: 'White Lies Rave flyer with the October 16 lineup, hours, and admission details', isFlyer: true, postedAt: '2026-10-13T22:29:46.000Z', url: 'https://www.instagram.com/edmclubatvt/p/Dec1NlWkQDh/' },
+  { id: 'production-workshop-recap', name: 'Production Workshop Recap', date: 'Posted Oct 7, 2026', type: 'Workshop recap', description: 'Sharing tracks, getting feedback, and learning new production techniques.', poster: '/assets/instagram/instagram-DeNEhtxFFOM.jpg', imageAlt: 'EDM Club production workshop with a presentation about spatial mixing', postedAt: '2026-10-07T19:06:14.000Z', url: 'https://www.instagram.com/edmclubatvt/p/DeNEhtxFFOM/' },
+  { id: 'after-dark-recap', name: 'After Dark Rave Recap', date: 'Posted Oct 1, 2026', type: 'Show recap', description: 'A look back at the DJs, lights, and energy of After Dark.', poster: '/assets/instagram/instagram-Dd98FSkkY0b.jpg', imageAlt: 'DJs and the crowd at the After Dark rave under colorful lights', postedAt: '2026-10-01T22:04:59.000Z', url: 'https://www.instagram.com/edmclubatvt/p/Dd98FSkkY0b/' },
+  { id: 'beaux-cant-take-us-down', name: 'Can’t Take Us Down', date: 'Posted Sep 29, 2026', type: 'Reel · Beaux', description: 'Catch Beaux behind the decks. Watch the full reel on Instagram.', poster: '/assets/instagram/instagram-Dd2LoSUMMix.jpg', imageAlt: 'Crowd dancing in the EDM Club reel featuring Beaux', mediaType: 'reel', postedAt: '2026-09-29T20:30:06.000Z', url: 'https://www.instagram.com/edmclubatvt/reel/Dd2LoSUMMix/' },
 ];
 
 export const board = [
