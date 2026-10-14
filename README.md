@@ -23,6 +23,6 @@ Event dates and venues are preserved from the HTML. Since the dates have no year
 
 Release titles from the HTML are sample content labeled Preview. Set each release's `url` to its actual listening link and replace sample title/artist information. SoundCloud track URLs automatically render an embedded player. Set `artwork` to a local asset path if available.
 
-The design uses charcoal, white, subtle grain, and chrome branding. Board graphics are displayed in grayscale through CSS; the original assets remain intact. The mood reference is not included in the site.
+The design uses charcoal, white, subtle grain, and chrome branding. Board graphics display their original colors without image filters. The mood reference is not included in the site.
 
 Scroll reveals use React effects with cleanup, including reduced-motion support. The textured background is static CSS. Navigation adapts to mobile screens and supports keyboard dismissal.
