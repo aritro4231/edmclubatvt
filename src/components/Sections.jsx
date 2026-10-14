@@ -17,21 +17,30 @@ function AssetImage({ src, fallback, ...props }) {
 
 export function Hero() {
   return <section className="hero" id="top">
-    <div className="hero__content">
-      <div className="hero__eyebrow">Bringing PLUR to Blacksburg</div>
-      <h1 className="hero__title">EDM Club<span className="hero__title-sub">at Virginia Tech.</span></h1>
-      <p className="hero__tag">Hosting shows, workshops, and elevating the EDM scene in Blacksburg. Will you rave with us?</p>
-      <div className="hero__cta-row"><a href="#join" className="btn btn--solid">Join the club <span aria-hidden="true">→</span></a><a href="#events" className="btn btn--ghost">Explore our events</a></div>
+    <div className="hero__index"><span>Blacksburg, VA / Virginia Tech</span><span>Underground Renaissance</span></div>
+    <h1 className="hero__title"><span className="hero__word">EDM</span><span className="hero__word">CLUB</span><span className="hero__title-sub">at Virginia Tech.</span></h1>
+    <div className="hero__bottom">
+      <div className="hero__art">
+        <div className="club-seal">
+          <div className="club-seal__stars" aria-hidden="true">{Array.from({ length: 12 }, (_, index) => <span key={index} style={{ '--angle': `${index * 30}deg` }}>★</span>)}</div>
+          <img src={club.logo} alt="EDM Club — Vol. 02, Underground Renaissance" />
+        </div>
+        <span className="hero__art-caption">One community. All frequencies.</span>
+      </div>
+      <div className="hero__content">
+        <div className="hero__eyebrow">Bringing PLUR to Blacksburg</div>
+        <p className="hero__tag">Hosting shows, workshops, and elevating the EDM scene in Blacksburg. Will you rave with us?</p>
+        <div className="hero__cta-row"><a href="#join" className="btn btn--solid">Join the club <span aria-hidden="true">↗</span></a><a href="#events" className="btn btn--ghost">Explore our events <span aria-hidden="true">↓</span></a></div>
+      </div>
     </div>
-    <div className="hero__art"><img src={club.logo} alt="EDM Club at Virginia Tech — Vol. 02, Underground Renaissance" /><span className="hero__art-caption">THE SOUND OF OUR COMMUNITY</span></div>
-    <a href="#socials" className="scroll-cue"><span>Scroll</span><span className="scroll-cue__line" aria-hidden="true" /></a>
+    <a href="#socials" className="scroll-cue"><span>Enter the scene</span><span aria-hidden="true">↓</span></a>
   </section>;
 }
 
 export function Socials() {
   return <section id="socials">
     <SectionHeading eyebrow="Find us" title="Follow the sound.">Sets, event details, and community updates all on our socials. Follow us to stay up-to-date with EDM Club.</SectionHeading>
-    <div className="social-grid reveal-stagger">{socials.map(social => <ExternalLink key={social.name} href={social.url} className="social-card" style={{ '--card-glow': social.color }}>
+    <div className="social-grid reveal-stagger">{socials.map(social => <ExternalLink key={social.name} href={social.url} className="social-card">
       <SocialIcon name={social.icon} /><h3>{social.name}</h3><p>{social.description}</p><span className="arrow">{social.label} <span aria-hidden="true">↗</span></span>
     </ExternalLink>)}</div>
   </section>;
@@ -39,7 +48,7 @@ export function Socials() {
 
 function EventCard({ event }) {
   const content = <>
-    <AssetImage src={event.poster} className="event-card__poster" alt={`${event.name} poster`} fallback={<div className="event-poster" style={{ '--poster-color': event.color }}><span className="event-poster__club">EDM CLUB / VIRGINIA TECH</span><span className="event-poster__type">{event.type}</span><span className="event-poster__name">{event.name}</span><span className="event-poster__date">{event.date}<small>{event.location}</small></span></div>} />
+    <AssetImage src={event.poster} className="event-card__poster" alt={`${event.name} poster`} fallback={<div className={`event-poster event-poster--${event.id}`}><span className="event-poster__club">EDM CLUB / VIRGINIA TECH</span><span className="event-poster__type">{event.type}</span><span className="event-poster__name">{event.name}</span><span className="event-poster__date">{event.date}<small>{event.location}</small></span></div>} />
     <div className="event-card__body"><div className="event-card__date">{event.date} · {event.time}</div><h3 className="event-card__name">{event.name}</h3><p className="event-card__loc">{event.location}</p></div>
   </>;
   return event.url ? <ExternalLink className="event-card" href={event.url}>{content}</ExternalLink> : <article className="event-card">{content}</article>;
@@ -66,7 +75,7 @@ function ReleaseRow({ release, index }) {
   const soundCloud = release.url && /^https:\/\/(www\.)?soundcloud\.com\//i.test(release.url);
   return <article className="release-entry"><div className="release-row">
     <span className="release-row__num">{String(index + 1).padStart(2, '0')}</span>
-    <AssetImage className="release-row__art" src={release.artwork} alt="" fallback={<span className="release-art" style={{ '--art-color': release.color }} aria-hidden="true">♫</span>} />
+    <AssetImage className="release-row__art" src={release.artwork} alt="" fallback={<span className="release-art" aria-hidden="true">♫</span>} />
     <div className="release-row__meta"><h3 className="release-row__title">{release.title}</h3><p className="release-row__artist">{release.artist}</p></div>
     {release.url ? <ExternalLink className="release-row__play" href={release.url} aria-label={`Listen to ${release.title} by ${release.artist}`}><span aria-hidden="true">↗</span></ExternalLink> : <span className="release-status">Preview</span>}
   </div>{soundCloud && <iframe className="soundcloud-player" title={`${release.title} SoundCloud player`} loading="lazy" allow="autoplay" src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(release.url)}&auto_play=false&show_comments=false&show_user=true&visual=false`} />}</article>;
