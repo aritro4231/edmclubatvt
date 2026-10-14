@@ -50,10 +50,10 @@ section:not(.hero) { border-top: 1px solid var(--line); }
 .hero__index { display: flex; justify-content: space-between; gap: 24px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: 34px; }
 .hero__bottom { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 80px; margin: auto; padding: 48px 0; width: 100%; max-width: 900px; }
 .hero__art { display: flex; flex-direction: column; align-items: center; }
-.club-seal { width: 266px; height: 266px; position: relative; display: grid; place-items: center; }
-.club-seal img { width: 220px; mix-blend-mode: screen; }
+.club-seal { --seal-size: clamp(280px, 30vw, 360px); width: var(--seal-size); height: var(--seal-size); position: relative; display: grid; place-items: center; }
+.club-seal img { width: 90%; mix-blend-mode: screen; }
 .club-seal__stars { position: absolute; inset: 0; }
-.club-seal__stars span { position: absolute; left: 50%; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px; font-size: 24px; line-height: 1; text-align: center; transform: rotate(var(--angle)) translateY(-122px) rotate(calc(-1 * var(--angle))); }
+.club-seal__stars span { position: absolute; left: 50%; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px; font-size: 24px; line-height: 1; text-align: center; transform: rotate(var(--angle)) translateY(calc(var(--seal-size) * -.46)) rotate(calc(-1 * var(--angle))); }
 .hero__art-caption { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-top: 22px; }
 .hero__eyebrow { font-family: var(--mono); font-size: 13px; font-weight: 400; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin-bottom: 20px; }
 .hero__tag { max-width: 42ch; font-size: 18px; line-height: 1.7; }
@@ -154,9 +154,8 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
   .hero__index { font-size: 12px; margin-bottom: 40px; }
   .hero__index span:last-child { display: none; }
   .hero__bottom { grid-template-columns: 1fr; gap: 40px; padding: 42px 0; }
-  .club-seal { width: 230px; height: 230px; }
-  .club-seal img { width: 185px; }
-  .club-seal__stars span { font-size: 19px; transform: rotate(var(--angle)) translateY(-104px) rotate(calc(-1 * var(--angle))); }
+  .club-seal { --seal-size: min(300px, calc(100vw - 64px)); }
+  .club-seal__stars span { font-size: 19px; }
   .hero__content { text-align: center; }
   .hero__eyebrow { font-size: 12px; }
   .hero__tag { margin: 0 auto; font-size: 16px; }
