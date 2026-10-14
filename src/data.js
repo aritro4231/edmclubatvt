@@ -5,6 +5,17 @@ export const club = {
   joinUrl: 'https://gobblerconnect.vt.edu/organization/edmclubatvt',
 };
 
+// Artist-station URLs open on SoundCloud: its embedded player rejects them.
+// For in-page playback, set embedUrl to a public track/regular playlist URL
+// verified through SoundCloud's Share > Embed option. Keep url as the station link.
+export const radioStations = [
+  { id: 'ari', name: 'Ari', image: '/assets/aritro.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1420286394', embedUrl: null },
+  { id: 'beaux', name: 'Beaux', image: '/assets/levi.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1380249472', embedUrl: null },
+  { id: 'hovanez', name: 'Hovanez', image: '/assets/john-bedeian.png', url: 'https://soundcloud.com/discover/sets/artist-stations:263550940', embedUrl: null },
+  { id: 'sofasux', name: 'Sofasux', image: '/assets/sophia.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1099633732', embedUrl: null },
+  { id: 'sinverze', name: 'Sinverze', image: '/assets/maxim.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1067107096', embedUrl: null },
+];
+
 export const socials = [
   { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/edmclubatvt/?hl=en', description: 'Photo dumps, event promo, and stories from the club.', label: '@edmclubatvt', color: 'var(--magenta)' },
   { name: 'TikTok', icon: 'tiktok', url: 'https://www.tiktok.com/@edmclubatvt', description: 'Show clips, mini mixes, and member whereabouts.', label: '@edmclubatvt', color: 'var(--cyan)' },

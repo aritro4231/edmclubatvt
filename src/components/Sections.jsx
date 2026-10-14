@@ -30,6 +30,7 @@ export function Hero() {
         <h1 className="hero__eyebrow">Bringing PLUR to Blacksburg</h1>
         <p className="hero__tag">Hosting shows, workshops, and elevating the EDM scene in Blacksburg. Will you rave with us?</p>
         <div className="hero__cta-row"><a href="#join" className="btn btn--solid">Join the club <span aria-hidden="true">↗</span></a><a href="#events" className="btn btn--ghost">Explore our events <span aria-hidden="true">↓</span></a></div>
+        <a className="hero__radio-link" href="#radio">Tune into Club Radio <span aria-hidden="true">↓</span></a>
       </div>
     </div>
     <a href="#socials" className="scroll-cue"><span>Enter the scene</span><span aria-hidden="true">↓</span></a>
