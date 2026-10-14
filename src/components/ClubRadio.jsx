@@ -1,19 +1,6 @@
 import { useRef, useState } from 'react';
 import { radioStations } from '../data';
-
-function embedSource(url) {
-  const params = new URLSearchParams({
-    url,
-    auto_play: 'false',
-    color: '#191919',
-    show_artwork: 'true',
-    show_user: 'true',
-    show_comments: 'false',
-    visual: 'false',
-    single_active: 'true',
-  });
-  return `https://w.soundcloud.com/player/?${params}`;
-}
+import SoundCloudRadioPlayer from './SoundCloudRadioPlayer';
 
 export default function ClubRadio() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -54,23 +41,7 @@ export default function ClubRadio() {
         ><span className="radio-station__number">{String(index + 1).padStart(2, '0')}</span>{item.name}<span className="radio-station__light" aria-hidden="true" /></button>)}
       </div>
 
-      <div id="radio-panel" className="radio-panel" role="tabpanel" aria-labelledby={`radio-tab-${station.id}`} tabIndex={0}>
-        <img key={station.image} className="radio-artwork" src={station.image} alt={`${station.name} EDM Club member graphic`} loading="lazy" width="1000" height="1000" />
-        <div className="radio-details">
-          <div className="radio-details__topline"><span>Artist station</span><span>CH. {String(selectedIndex + 1).padStart(2, '0')} / 05</span></div>
-          <h3 className="radio-name">{station.name}<span>Radio</span></h3>
-          <p className="radio-description">Explore {station.name}’s artist station on SoundCloud.</p>
-          <a className="btn btn--solid radio-listen" href={station.embedUrl || station.url} target="_blank" rel="noopener noreferrer" aria-label={`Listen to ${station.name} Radio on SoundCloud (opens a new tab)`}>Listen on SoundCloud <span aria-hidden="true">↗</span></a>
-          <span className="radio-service">{station.embedUrl ? 'Play below or listen on SoundCloud.' : 'Opens in SoundCloud.'}</span>
-        </div>
-        {station.embedUrl && <iframe
-          key={station.id}
-          className="radio-player"
-          title={`${station.name} Radio SoundCloud player`}
-          src={embedSource(station.embedUrl)}
-          allow="autoplay"
-        />}
-      </div>
+      <SoundCloudRadioPlayer key={station.id} station={station} index={selectedIndex} total={radioStations.length} />
       <p className="radio-announcement sr-only" role="status" aria-live="polite">{station.name} Radio selected.</p>
     </div>
   </section>;

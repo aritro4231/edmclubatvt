@@ -19,9 +19,9 @@ Update `src/data.js` for social links, membership, events, board members, and re
 
 ## Club Radio
 
-`src/components/ClubRadio.jsx` provides five switchable artist stations from `radioStations` in `src/data.js`. Station tabs support mouse, touch, and keyboard navigation (arrows, Home, End). The supplied generated artist-station URLs are rejected by SoundCloud's embedded player, so their Listen buttons open the matching station on SoundCloud.
+`src/components/ClubRadio.jsx` provides five switchable channels from `radioStations` in `src/data.js`. Station tabs support mouse, touch, and keyboard navigation (arrows, Home, End). Each channel embeds the uploads of the artist identified by the supplied station URL. SoundCloud's generated recommendation station is not supported by its widget; the artist's own tracks and mixes are supported.
 
-To enable playback inside the site, set a station's `embedUrl` to a public SoundCloud track or regular playlist URL verified with Share > Embed. Only the selected station mounts a player, so switching removes the previous player and stops its audio. Playback starts through the SoundCloud player's controls, without autoplay.
+`SoundCloudRadioPlayer.jsx` connects the site's Play/Pause, track navigation, seeking, volume, and current-track display to SoundCloud's official Widget API. Only the selected channel mounts a player; switching removes the previous player and stops its audio. No autoplay or API credentials are required. The visible embedded player preserves SoundCloud attribution and remains usable if custom controls cannot load.
 
 The supplied logos and six matching board graphics are copied into `public/assets`, so the site does not depend on files outside this project. The homepage uses the smaller club emblem; the chrome logo is retained as an unused asset.
 
