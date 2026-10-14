@@ -3,6 +3,8 @@ export const club = {
   name: 'EDM Club at Virginia Tech',
   logo: '/assets/edm-club-logo.png',
   joinUrl: 'https://gobblerconnect.vt.edu/organization/edmclubatvt',
+  equipmentRentalUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdykJ1PW17KWFdTtW7CEIudTgqyMguITBD3AZaND_2KoEDOoA/viewform?usp=publish-editor',
+  instagramUrl: 'https://www.instagram.com/edmclubatvt/',
 };
 
 // Radio queues come from the actual public recommendation-station pages.
@@ -17,6 +19,8 @@ export const radioStations = [
 export const socials = [
   { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/edmclubatvt/?hl=en', description: 'Photo dumps, event promo, and stories from the club.', label: '@edmclubatvt', color: 'var(--magenta)' },
   { name: 'TikTok', icon: 'tiktok', url: 'https://www.tiktok.com/@edmclubatvt', description: 'Show clips, mini mixes, and member whereabouts.', label: '@edmclubatvt', color: 'var(--cyan)' },
+  { name: 'SoundCloud', icon: 'soundcloud', url: 'https://soundcloud.com/edmcvt', description: 'Listen to mixes and music from EDM Club.', label: 'edmcvt' },
+  { name: 'YouTube', icon: 'youtube', url: 'https://www.youtube.com/@EDMatVirginiaTech', description: 'Watch sets and videos from the club.', label: '@EDMatVirginiaTech' },
   { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/company/edmclubatvirginiatech/', description: 'Our official LinkedIn page.', label: 'EDM Club at Virginia Tech', color: 'var(--violet)' },
   { name: 'Discord', icon: 'discord', url: 'https://discord.gg/Cy5ee7pwjp', description: 'Chat with members, get event pings, and share tracks.', label: 'Join our server', color: '#5865F2' },
 ];

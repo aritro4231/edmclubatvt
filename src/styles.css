@@ -64,14 +64,19 @@ section:not(.hero) { border-top: 1px solid var(--line); }
 .btn--ghost { background: transparent; border-color: var(--line); }
 .btn--ghost:hover { background: var(--white); color: var(--void-2); }
 .scroll-cue { display: flex; justify-content: space-between; gap: 24px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; color: var(--muted); letter-spacing: .15em; border-top: 1px solid var(--line); padding-top: 18px; margin-top: auto; }
-.social-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.social-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .social-card { border: 1px solid var(--line); padding: 28px 22px; background: rgba(0,0,0,.08); display: flex; flex-direction: column; transition: background .2s; }
-.social-card + .social-card { border-left: 0; }
 .social-card:hover { background: rgba(255,255,255,.04); }
 .social-card__icon { width: 26px; height: 26px; margin-bottom: 30px; }
 .social-card h3 { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: -.04em; text-transform: uppercase; margin-bottom: 12px; }
 .social-card p { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
 .social-card .arrow { display: flex; justify-content: space-between; gap: 14px; margin-top: auto; font-family: var(--mono); font-size: 12px; }
+.forms-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.form-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: 32px; border: 1px solid var(--line); background: rgba(0,0,0,.08); }
+.form-card__label { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 28px; }
+.form-card h3 { font-family: var(--display); font-size: clamp(20px, 2vw, 26px); font-weight: 700; text-transform: uppercase; letter-spacing: -.04em; line-height: 1.4; margin-bottom: 18px; }
+.form-card p { color: var(--muted); font-size: 16px; margin-bottom: 32px; }
+.form-card .btn { margin-top: auto; max-width: 100%; }
 .events-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 .event-card { min-width: 0; }
 .event-card__poster { width: 100%; aspect-ratio: 4/5; object-fit: cover; filter: grayscale(1); }
@@ -119,10 +124,9 @@ section:not(.hero) { border-top: 1px solid var(--line); }
 .join .btn { padding: 18px 30px; }
 footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; color: var(--muted); font-family: var(--mono); font-size: 12px; }
 @media (max-width: 1100px) {
+  nav.links { gap: 18px; }
   .hero__bottom { gap: 40px; }
   .social-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .social-card:nth-child(3) { border-left: 1px solid var(--line); }
-  .social-card:nth-child(n+3) { border-top: 0; }
   .events-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 24px; }
   .event-poster__name { font-size: clamp(24px, 3.2vw, 36px); }
 }
@@ -156,6 +160,8 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
   .social-card h3 { font-size: 14px; }
   .social-card p { font-size: 14px; }
   .social-card .arrow { font-size: 12px; }
+  .forms-grid { grid-template-columns: 1fr; }
+  .form-card { padding: 26px 22px; }
   .events-grid { gap: 24px 16px; }
   .event-poster { padding: 16px; }
   .event-poster__name { font-size: 22px; }
@@ -172,7 +178,6 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
 }
 @media (max-width: 440px) {
   .social-grid, .events-grid { grid-template-columns: 1fr; }
-  .social-card + .social-card { border-left: 1px solid var(--line); border-top: 0; }
   .social-card { display: grid; grid-template-columns: 1fr auto; gap: 0 14px; }
   .social-card__icon { grid-column: 2; grid-row: 1; width: 20px; height: 20px; margin-bottom: 0; }
   .social-card h3 { grid-column: 1; grid-row: 1; font-size: 14px; }
@@ -215,7 +220,10 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
 .radio-service { display: block; font-size: 12px; font-family: var(--mono); color: var(--muted); margin-top: 14px; }
 .radio-player { display: block; grid-column: 1 / -1; width: 100%; height: 350px; border: 0; }
 @media (max-width: 900px) {
-  nav.links { gap: 18px; }
+  .menu-toggle { display: block; }
+  nav.links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; padding: 12px 24px; background: #191919; border-bottom: 1px solid var(--line); }
+  nav.links.links--open { display: flex; }
+  nav.links a { padding: 14px 0; }
   .radio-station { gap: 8px; font-size: 13px; }
   .radio-station__number { display: none; }
   .radio-panel { grid-template-columns: minmax(0, 230px) minmax(0, 1fr); padding: 28px; gap: 28px; }

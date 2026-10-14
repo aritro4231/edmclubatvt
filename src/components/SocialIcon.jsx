@@ -1,4 +1,6 @@
 export default function SocialIcon({ name }) {
+  if (name === 'youtube') return <svg className="social-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" /><path d="m10 9 5 3-5 3Z" fill="currentColor" stroke="none" /></svg>;
+  if (name === 'soundcloud') return <svg className="social-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true"><path d="M2 13v3m3-5v7m3-9v9m3-7v7M14 18h5a3 3 0 0 0 .5-6A4.5 4.5 0 0 0 14 8.2Z" /></svg>;
   if (name === 'instagram') return <svg className="social-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="6" /><circle cx="12" cy="12" r="4.2" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" /></svg>;
   const paths = {
     tiktok: 'M16.6 2h-3.2v13.6a3.3 3.3 0 1 1-2.9-3.28V8.9a6.7 6.7 0 1 0 6.1 6.68V8.5a7.9 7.9 0 0 0 4.6 1.5V6.7a4.6 4.6 0 0 1-4.6-4.7Z',

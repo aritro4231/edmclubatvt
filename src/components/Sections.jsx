@@ -71,6 +71,26 @@ export function Board() {
   </section>;
 }
 
+export function Forms() {
+  return <section id="forms">
+    <SectionHeading eyebrow="Forms & opportunities" title="Get involved.">Need equipment or want to get behind the decks? Start here.</SectionHeading>
+    <div className="forms-grid reveal-stagger">
+      <article className="form-card">
+        <span className="form-card__label">01 / Equipment</span>
+        <h3>Equipment rental</h3>
+        <p>Request equipment from EDM Club through our rental form.</p>
+        <ExternalLink href={club.equipmentRentalUrl} className="btn btn--solid">Equipment rental form <span aria-hidden="true">↗</span></ExternalLink>
+      </article>
+      <article className="form-card">
+        <span className="form-card__label">02 / Behind the decks</span>
+        <h3>Want to play a set with EDM Club?</h3>
+        <p>Send your set to @edmclubatvt on Instagram. We want to hear your sound.</p>
+        <ExternalLink href={club.instagramUrl} className="btn btn--ghost">Send us your set <span aria-hidden="true">↗</span></ExternalLink>
+      </article>
+    </div>
+  </section>;
+}
+
 export function Join() {
   return <section className="join" id="join"><div className="eyebrow reveal" style={{ justifyContent: 'center' }}>Membership</div><h2 className="join__title reveal">Come make <span className="accent">noise</span> with us.</h2><p className="join__sub reveal">No experience needed, just show up. Sign up through GobblerConnect to get on the list for meetings and events.</p><ExternalLink href={club.joinUrl} className="btn btn--solid reveal">Join on GobblerConnect <span aria-hidden="true">↗</span></ExternalLink></section>;
 }
