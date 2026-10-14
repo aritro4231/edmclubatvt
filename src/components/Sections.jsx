@@ -18,7 +18,7 @@ function AssetImage({ src, fallback, ...props }) {
 export function Hero() {
   return <section className="hero" id="top">
     <div className="hero__index"><span>Blacksburg, VA / Virginia Tech</span><span>Underground Renaissance</span></div>
-    <h1 className="hero__title"><span className="hero__word">EDM</span><span className="hero__word">CLUB</span><span className="hero__title-sub">at Virginia Tech.</span></h1>
+    <h1 className="hero__title"><span className="hero__logo-frame"><img className="hero__logo" src={club.heroLogo} alt="EDM Club at Virginia Tech" width="3000" height="2000" fetchPriority="high" /></span></h1>
     <div className="hero__bottom">
       <div className="hero__art">
         <div className="club-seal">

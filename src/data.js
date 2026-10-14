@@ -2,6 +2,7 @@
 export const club = {
   name: 'EDM Club at Virginia Tech',
   logo: '/assets/edm-club-logo.png',
+  heroLogo: '/assets/edm-club-chrome.png',
   joinUrl: 'https://gobblerconnect.vt.edu/organization/edmclubatvt',
 };
 
