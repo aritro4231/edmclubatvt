@@ -9,7 +9,7 @@ export const club = {
 // artist's uploaded tracks, which support playback through the official widget.
 // Generated recommendation stations are not supported by SoundCloud's widget.
 export const radioStations = [
-  { id: 'ari', name: 'Ari', image: '/assets/aritro.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1420286394', embedUrl: 'https://api.soundcloud.com/users/1420286394' },
+  { id: 'ari', name: 'Ari', image: '/assets/ari-updated.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1420286394', embedUrl: 'https://api.soundcloud.com/users/1420286394' },
   { id: 'beaux', name: 'Beaux', image: '/assets/levi.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1380249472', embedUrl: 'https://api.soundcloud.com/users/1380249472' },
   { id: 'hovanez', name: 'Hovanez', image: '/assets/john-bedeian.png', url: 'https://soundcloud.com/discover/sets/artist-stations:263550940', embedUrl: 'https://api.soundcloud.com/users/263550940' },
   { id: 'sofasux', name: 'Sofasux', image: '/assets/sophia.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1099633732', embedUrl: 'https://api.soundcloud.com/users/1099633732' },
@@ -37,7 +37,7 @@ export const board = [
   { name: 'Maxim Dierickx', alias: 'Sinverze', role: 'President', image: '/assets/maxim.png' },
   { name: 'John Bedeian', alias: 'Hovanez', role: 'Vice President', image: '/assets/john-bedeian.png' },
   { name: 'John Williamson', alias: 'Jakid', role: 'Treasurer', image: '/assets/john-williamson.png' },
-  { name: 'Aritro Sengupta', alias: 'Ari', role: 'Social Chair', image: '/assets/aritro.png' },
+  { name: 'Aritro Sengupta', alias: 'Ari', role: 'Social Chair', image: '/assets/ari-updated.png' },
   { name: 'Sophia Fulton', alias: 'Sofasux', role: 'Event Coordinator', image: '/assets/sophia.png' },
   { name: 'Levi Bowman', alias: 'Beaux', role: 'Equipment Manager', image: '/assets/levi.png' },
 ];
