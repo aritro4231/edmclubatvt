@@ -1,0 +1,89 @@
+import { useState } from 'react';
+import { board, club, events, releases, socials } from '../data';
+import SocialIcon from './SocialIcon';
+
+function ExternalLink({ children, ...props }) {
+  return <a {...props} target="_blank" rel="noopener noreferrer">{children}</a>;
+}
+
+function SectionHeading({ eyebrow, title, children }) {
+  return <><div className="eyebrow reveal">{eyebrow}</div><h2 className="section-title reveal">{title}</h2><p className="section-sub reveal">{children}</p></>;
+}
+
+function AssetImage({ src, fallback, ...props }) {
+  const [failed, setFailed] = useState(false);
+  return src && !failed ? <img {...props} src={src} onError={() => setFailed(true)} loading="lazy" /> : fallback;
+}
+
+export function Hero() {
+  return <section className="hero" id="top">
+    <div className="hero__content">
+      <div className="hero__eyebrow">Bringing PLUR to Blacksburg</div>
+      <h1 className="hero__title">EDM Club<span className="hero__title-sub">at Virginia Tech.</span></h1>
+      <p className="hero__tag">Hosting shows, workshops, and elevating the EDM scene in Blacksburg. Will you rave with us?</p>
+      <div className="hero__cta-row"><a href="#join" className="btn btn--solid">Join the club <span aria-hidden="true">→</span></a><a href="#events" className="btn btn--ghost">Explore our events</a></div>
+    </div>
+    <div className="hero__art"><img src={club.logo} alt="EDM Club at Virginia Tech — Vol. 02, Underground Renaissance" /><span className="hero__art-caption">THE SOUND OF OUR COMMUNITY</span></div>
+    <a href="#socials" className="scroll-cue"><span>Scroll</span><span className="scroll-cue__line" aria-hidden="true" /></a>
+  </section>;
+}
+
+export function Socials() {
+  return <section id="socials">
+    <SectionHeading eyebrow="Find us" title="Follow the sound.">Sets, event details, and community updates all on our socials. Follow us to stay up-to-date with EDM Club.</SectionHeading>
+    <div className="social-grid reveal-stagger">{socials.map(social => <ExternalLink key={social.name} href={social.url} className="social-card" style={{ '--card-glow': social.color }}>
+      <SocialIcon name={social.icon} /><h3>{social.name}</h3><p>{social.description}</p><span className="arrow">{social.label} <span aria-hidden="true">↗</span></span>
+    </ExternalLink>)}</div>
+  </section>;
+}
+
+function EventCard({ event }) {
+  const content = <>
+    <AssetImage src={event.poster} className="event-card__poster" alt={`${event.name} poster`} fallback={<div className="event-poster" style={{ '--poster-color': event.color }}><span className="event-poster__club">EDM CLUB / VIRGINIA TECH</span><span className="event-poster__type">{event.type}</span><span className="event-poster__name">{event.name}</span><span className="event-poster__date">{event.date}<small>{event.location}</small></span></div>} />
+    <div className="event-card__body"><div className="event-card__date">{event.date} · {event.time}</div><h3 className="event-card__name">{event.name}</h3><p className="event-card__loc">{event.location}</p></div>
+  </>;
+  return event.url ? <ExternalLink className="event-card" href={event.url}>{content}</ExternalLink> : <article className="event-card">{content}</article>;
+}
+
+export function Events() {
+  return <section id="events">
+    <SectionHeading eyebrow="Club highlights" title="Club events.">Shows, workshops, and meetings that bring our community together. Follow our socials for upcoming dates.</SectionHeading>
+    <div className="events-grid reveal-stagger">{events.map(event => <EventCard key={event.id} event={event} />)}</div>
+  </section>;
+}
+
+export function Board() {
+  return <section id="board">
+    <SectionHeading eyebrow="Executive Board" title="Meet the board.">Keeping the club alive with enthusiasm and collaboration.</SectionHeading>
+    <div className="board-grid reveal-stagger">{board.map(member => <article className="board-card" key={member.name}>
+      <div className="board-card__photo-wrap"><AssetImage className="board-card__photo" src={member.image} alt={`${member.name}, “${member.alias}”, ${member.role}`} fallback={<div className="portrait-fallback" aria-hidden="true">{member.name.split(' ').map(part => part[0]).join('')}</div>} /></div>
+      <h3 className="board-card__name">{member.name}<span className="board-card__alias">“{member.alias}”</span></h3><p className="board-card__role">{member.role}</p>
+    </article>)}</div>
+  </section>;
+}
+
+function ReleaseRow({ release, index }) {
+  const soundCloud = release.url && /^https:\/\/(www\.)?soundcloud\.com\//i.test(release.url);
+  return <article className="release-entry"><div className="release-row">
+    <span className="release-row__num">{String(index + 1).padStart(2, '0')}</span>
+    <AssetImage className="release-row__art" src={release.artwork} alt="" fallback={<span className="release-art" style={{ '--art-color': release.color }} aria-hidden="true">♫</span>} />
+    <div className="release-row__meta"><h3 className="release-row__title">{release.title}</h3><p className="release-row__artist">{release.artist}</p></div>
+    {release.url ? <ExternalLink className="release-row__play" href={release.url} aria-label={`Listen to ${release.title} by ${release.artist}`}><span aria-hidden="true">↗</span></ExternalLink> : <span className="release-status">Preview</span>}
+  </div>{soundCloud && <iframe className="soundcloud-player" title={`${release.title} SoundCloud player`} loading="lazy" allow="autoplay" src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(release.url)}&auto_play=false&show_comments=false&show_user=true&visual=false`} />}</article>;
+}
+
+export function Releases() {
+  const hasLiveReleases = releases.some(release => release.url);
+  return <section id="releases">
+    <SectionHeading eyebrow="Fresh IDs" title="New releases from our members.">{hasLiveReleases ? 'Original tracks and sets made by club members. Show your support.' : 'A preview of our release showcase. Member tracks and listening links are coming soon.'}</SectionHeading>
+    <div className="release-list reveal-stagger">{releases.map((release, index) => <ReleaseRow key={release.id} release={release} index={index} />)}</div>
+  </section>;
+}
+
+export function Join() {
+  return <section className="join" id="join"><div className="eyebrow reveal" style={{ justifyContent: 'center' }}>Membership</div><h2 className="join__title reveal">Come make <span className="accent">noise</span> with us.</h2><p className="join__sub reveal">No experience needed, just show up. Sign up through GobblerConnect to get on the list for meetings and events.</p><ExternalLink href={club.joinUrl} className="btn btn--solid reveal">Join on GobblerConnect <span aria-hidden="true">↗</span></ExternalLink></section>;
+}
+
+export function Footer() {
+  return <footer><a href="#top">© {new Date().getFullYear()} {club.name}</a><span>Built by the club, for the club.</span></footer>;
+}

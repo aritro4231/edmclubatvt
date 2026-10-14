@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDM CLUB AT VIRIGNIA TECH </title>
+<meta name="description" content="Virginia Tech's EDM club. Events, exec board, releases, and how to join.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ EDIT ZONE ============
+     Search "EDIT:" throughout this file to find every spot
+     you should personalize: club name, socials, events,
+     exec board, releases, and join link.
+     ==================================== */
+
+  :root{
+    --void:#07050d;
+    --void-2:#0d0818;
+    --void-3:#130c22;
+    --magenta:#ff2e92;
+    --cyan:#22e6ff;
+    --violet:#8a3ffc;
+    --acid:#d4ff3f;
+    --white:#f6f4ff;
+    --muted:#a89fc4;
+    --line: rgba(246,244,255,0.09);
+    --display: 'Unbounded', sans-serif;
+    --body: 'Space Grotesk', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--void);
+    color:var(--white);
+    font-family:var(--body);
+    overflow-x:hidden;
+    line-height:1.5;
+  }
+
+  ::selection{background:var(--magenta);color:var(--void);}
+
+  a{color:inherit;text-decoration:none;}
+
+  img{display:block;max-width:100%;}
+
+  /* ---------- Scanline / grain overlay ---------- */
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:60;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+
+  /* ---------- Animated background canvas ---------- */
+  #bg-canvas{
+    position:fixed;inset:0;width:100%;height:100%;z-index:0;
+    background:radial-gradient(ellipse at 50% -10%, var(--void-3), var(--void) 60%);
+  }
+
+  /* ---------- Pulse rail (signature element) ---------- */
+  .pulse-rail{
+    position:fixed;
+    left:28px;top:0;bottom:0;
+    width:2px;
+    z-index:40;
+    background:linear-gradient(to bottom, transparent, var(--line) 8%, var(--line) 92%, transparent);
+    display:flex;
+    justify-content:center;
+  }
+  .pulse-rail__fill{
+    width:100%;
+    height:0%;
+    background:linear-gradient(to bottom, var(--cyan), var(--violet), var(--magenta));
+    box-shadow:0 0 12px var(--magenta), 0 0 24px var(--violet);
+    transition:height 0.1s linear;
+  }
+  .pulse-rail__dot{
+    position:absolute;
+    left:50%;
+    transform:translate(-50%,-50%);
+    top:0%;
+    width:10px;height:10px;border-radius:50%;
+    background:var(--acid);
+    box-shadow:0 0 8px 3px var(--acid);
+    transition:top 0.1s linear;
+  }
+  @media (max-width:880px){ .pulse-rail{display:none;} }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px clamp(24px,5vw,64px);
+    backdrop-filter:blur(10px);
+    background:linear-gradient(to bottom, rgba(7,5,13,0.85), transparent);
+  }
+  .logotype{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:20px;
+    letter-spacing:0.02em;
+  }
+  .logotype span{color:var(--magenta);}
+  nav.links{display:flex;gap:clamp(14px,2.5vw,32px);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;}
+  nav.links a{opacity:0.75;transition:opacity 0.2s, color 0.2s;position:relative;}
+  nav.links a:hover{opacity:1;color:var(--cyan);}
+
+  /* ---------- Sections general ---------- */
+  section{
+    position:relative;
+    z-index:1;
+    padding:120px clamp(24px,7vw,120px);
+    max-width:1400px;
+    margin:0 auto;
+  }
+
+  .eyebrow{
+    font-family:var(--body);
+    font-size:12px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--acid);
+    margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px;height:1px;
+    background:var(--acid);
+    display:inline-block;
+  }
+
+  h2.section-title{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(32px,5vw,58px);
+    line-height:1.05;
+    margin-bottom:20px;
+    max-width:14ch;
+  }
+
+  .section-sub{
+    color:var(--muted);
+    font-size:17px;
+    max-width:56ch;
+    margin-bottom:56px;
+  }
+
+  /* reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(36px);
+    transition:opacity 0.8s cubic-bezier(.16,.84,.44,1), transform 0.8s cubic-bezier(.16,.84,.44,1);
+  }
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .reveal-stagger > *{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s cubic-bezier(.16,.84,.44,1), transform 0.7s cubic-bezier(.16,.84,.44,1);
+  }
+  .reveal-stagger.in-view > *{opacity:1;transform:translateY(0);}
+  .reveal-stagger.in-view > *:nth-child(1){transition-delay:0.02s;}
+  .reveal-stagger.in-view > *:nth-child(2){transition-delay:0.10s;}
+  .reveal-stagger.in-view > *:nth-child(3){transition-delay:0.18s;}
+  .reveal-stagger.in-view > *:nth-child(4){transition-delay:0.26s;}
+  .reveal-stagger.in-view > *:nth-child(5){transition-delay:0.34s;}
+  .reveal-stagger.in-view > *:nth-child(6){transition-delay:0.42s;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:140px;
+    padding-bottom:80px;
+  }
+  .hero__eyebrow{
+    font-size:13px;letter-spacing:0.3em;text-transform:uppercase;
+    color:var(--cyan);margin-bottom:28px;
+  }
+  .hero__title{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:clamp(56px,13vw,168px);
+    line-height:0.92;
+    letter-spacing:-0.01em;
+    background:linear-gradient(100deg, var(--white) 30%, var(--cyan) 55%, var(--magenta) 75%, var(--violet) 95%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    background-size:200% 100%;
+    animation:sheen 8s ease-in-out infinite;
+  }
+  @keyframes sheen{
+    0%,100%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+  }
+  .hero__tag{
+    margin-top:28px;
+    font-size:clamp(16px,2vw,20px);
+    color:var(--muted);
+    max-width:46ch;
+  }
+  .hero__cta-row{
+    margin-top:48px;
+    display:flex;gap:18px;flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--body);
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:16px 30px;
+    border-radius:100px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s, background 0.25s;
+  }
+  .btn--solid{
+    background:linear-gradient(120deg, var(--magenta), var(--violet));
+    color:var(--white);
+    box-shadow:0 0 0 0 rgba(255,46,146,0);
+  }
+  .btn--solid:hover{
+    transform:translateY(-2px) scale(1.02);
+    box-shadow:0 8px 30px -8px var(--magenta);
+  }
+  .btn--ghost{
+    border:1px solid var(--line);
+    color:var(--white);
+  }
+  .btn--ghost:hover{
+    border-color:var(--cyan);
+    color:var(--cyan);
+    transform:translateY(-2px);
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:40px;left:50%;
+    transform:translateX(-50%);
+    font-size:11px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .scroll-cue__line{
+    width:1px;height:44px;
+    background:linear-gradient(to bottom, var(--cyan), transparent);
+    animation:pulse-cue 2s ease-in-out infinite;
+  }
+  @keyframes pulse-cue{
+    0%,100%{opacity:0.3;}
+    50%{opacity:1;}
+  }
+
+  /* ---------- Socials ---------- */
+  .social-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:20px;
+  }
+  .social-card{
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:32px 28px;
+    background:linear-gradient(160deg, rgba(255,255,255,0.03), transparent);
+    transition:border-color 0.3s, transform 0.3s, background 0.3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .social-card::after{
+    content:'';
+    position:absolute;inset:0;
+    background:radial-gradient(circle at 30% 20%, var(--card-glow,var(--magenta)) 0%, transparent 60%);
+    opacity:0;
+    transition:opacity 0.4s;
+  }
+  .social-card:hover::after{opacity:0.16;}
+  .social-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--card-glow, var(--magenta));
+  }
+  .social-card__icon{
+    width:36px;height:36px;
+    margin-bottom:22px;
+    color:var(--card-glow, var(--magenta));
+  }
+  .social-card h3{
+    font-family:var(--display);
+    font-size:19px;
+    margin-bottom:8px;
+    position:relative;
+  }
+  .social-card p{
+    color:var(--muted);
+    font-size:14px;
+    position:relative;
+  }
+  .social-card .arrow{
+    margin-top:20px;
+    font-size:13px;
+    display:inline-flex;align-items:center;gap:6px;
+    position:relative;
+  }
+
+  /* ---------- Events ---------- */
+  .events-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:26px;
+  }
+  .event-card{
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--void-2);
+    transition:transform 0.4s cubic-bezier(.16,.84,.44,1), border-color 0.3s;
+  }
+  .event-card:hover{
+    transform:translateY(-8px) rotate(-0.4deg);
+    border-color:var(--cyan);
+  }
+  .event-card__poster{
+    aspect-ratio:4/5;
+    width:100%;
+    object-fit:cover;
+    filter:saturate(1.1) contrast(1.05);
+  }
+  .event-card__body{padding:20px 20px 24px;}
+  .event-card__date{
+    font-size:12px;letter-spacing:0.15em;text-transform:uppercase;
+    color:var(--acid);margin-bottom:8px;
+  }
+  .event-card__name{
+    font-family:var(--display);
+    font-size:18px;
+    margin-bottom:6px;
+  }
+  .event-card__loc{color:var(--muted);font-size:13px;}
+
+  /* ---------- Exec board ---------- */
+  .board-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+    gap:30px 24px;
+  }
+  .board-card{text-align:left;}
+  .board-card__photo-wrap{
+    aspect-ratio:1/1;
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+    margin-bottom:18px;
+    border:1px solid var(--line);
+  }
+  .board-card__photo{
+    width:100%;height:100%;object-fit:cover;
+    filter:grayscale(0.5) contrast(1.05);
+    transition:filter 0.4s, transform 0.4s;
+  }
+  .board-card:hover .board-card__photo{
+    filter:grayscale(0) contrast(1.1);
+    transform:scale(1.04);
+  }
+  .board-card__photo-wrap::after{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(200deg, var(--magenta) 0%, transparent 45%);
+    mix-blend-mode:color;
+    opacity:0.5;
+  }
+  .board-card__name{
+    font-family:var(--display);
+    font-size:17px;
+    margin-bottom:4px;
+  }
+  .board-card__role{
+    color:var(--cyan);
+    font-size:13px;
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- Releases ---------- */
+  .release-list{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .release-row{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    padding:22px 24px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .release-row:hover{
+    border-color:var(--violet);
+    background:rgba(138,63,252,0.06);
+  }
+  .release-row__num{
+    font-family:var(--display);
+    font-size:14px;
+    color:var(--muted);
+    width:28px;
+    flex-shrink:0;
+  }
+  .release-row__art{
+    width:56px;height:56px;border-radius:10px;
+    object-fit:cover;flex-shrink:0;
+  }
+  .release-row__meta{flex:1;min-width:0;}
+  .release-row__title{
+    font-family:var(--display);
+    font-size:15px;
+    margin-bottom:3px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .release-row__artist{color:var(--muted);font-size:13px;}
+  .release-row__play{
+    width:42px;height:42px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    transition:background 0.3s, border-color 0.3s;
+  }
+  .release-row:hover .release-row__play{
+    background:var(--magenta);
+    border-color:var(--magenta);
+  }
+  .soundcloud-embed-note{
+    margin-top:28px;
+    padding:18px 22px;
+    border:1px dashed var(--line);
+    border-radius:14px;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .soundcloud-embed-note code{
+    color:var(--acid);
+    font-family:monospace;
+  }
+
+  /* ---------- Join CTA ---------- */
+  .join{
+    text-align:center;
+    padding-top:100px;padding-bottom:160px;
+    position:relative;
+  }
+  .join__title{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:clamp(38px,7vw,88px);
+    line-height:1;
+    margin-bottom:26px;
+  }
+  .join__title .accent{color:var(--magenta);}
+  .join__sub{
+    color:var(--muted);
+    font-size:18px;
+    max-width:50ch;
+    margin:0 auto 44px;
+  }
+  .join .btn--solid{
+    padding:20px 44px;
+    font-size:15px;
+  }
+
+  footer{
+    padding:40px clamp(24px,7vw,120px) 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:13px;
+    position:relative;
+    z-index:1;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<canvas id="bg-canvas"></canvas>
+
+<div class="pulse-rail">
+  <div class="pulse-rail__fill" id="pulseFill"></div>
+  <div class="pulse-rail__dot" id="pulseDot"></div>
+</div>
+
+<header>
+  <div class="logotype"><span>EDM CLUB</span>AT VIRGINA TECH</div>
+  <!-- EDIT: swap "PULSE" above and everywhere in this file with your club's actual name -->
+  <nav class="links">
+    <a href="#events">Events</a>
+    <a href="#board">Exec Board</a>
+    <a href="#releases">Releases</a>
+    <a href="#join">Join</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero__eyebrow">Bringing PLUR to Blacksburg</div>
+  <h1 class="hero__title">EDM Club at VT</h1>
+  <!-- EDIT: replace PULSE with your club name -->
+  <p class="hero__tag">Hosting shows, workshops, and elevating the EDM scene in Blacksburg. Will you rave with us?</p>
+  <div class="hero__cta-row">
+    <a href="#join" class="btn btn--solid">Join the club →</a>
+    <a href="#events" class="btn btn--ghost">See upcoming events</a>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <span class="scroll-cue__line"></span>
+  </div>
+</section>
+
+<!-- ============ SOCIALS ============ -->
+<section id="socials">
+  <div class="eyebrow reveal">Find us</div>
+  <h2 class="section-title reveal">Follow the sound.</h2>
+  <p class="section-sub reveal">Sets, event details, and community updates all on our socials. Follow us to stay up-to-date with EDM Club.</p>
+
+  <div class="social-grid reveal-stagger">
+    <!-- EDIT: replace href="#" with your real profile URLs -->
+    <a href="https://www.instagram.com/edmclubatvt/?hl=en" target="_blank" rel="noopener" class="social-card" style="--card-glow:var(--magenta)">
+      <svg class="social-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="6"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+      <h3>Instagram</h3>
+      <p>Photo dumps, event promo, and stories from the club.</p>
+      <span class="arrow">@edmclubatvt →</span>
+    </a>
+    <a href="https://www.tiktok.com/@edmclubatvt" target="_blank" rel="noopener" class="social-card" style="--card-glow:var(--cyan)">
+      <svg class="social-card__icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.2v13.6a3.3 3.3 0 1 1-2.9-3.28V8.9a6.7 6.7 0 1 0 6.1 6.68V8.5a7.9 7.9 0 0 0 4.6 1.5V6.7a4.6 4.6 0 0 1-4.6-4.7Z"/></svg>
+      <h3>TikTok</h3>
+      <p>Show clips, mini mixes, and member whereabouts.</p>
+      <span class="arrow">@edmclubatvt →</span>
+    </a>
+    <a href="https://www.linkedin.com/company/edmclubatvirginiatech/" target="_blank" rel="noopener" class="social-card" style="--card-glow:var(--violet)">
+      <svg class="social-card__icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.66 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21h-4V9Z"/></svg>
+      <h3>LinkedIn</h3>
+      <p>Our official LinkedIn page.</p>
+      <span class="arrow">EDM CLub at Virginia Tech →</span>
+    </a>
+    <a href="https://discord.gg/Cy5ee7pwjp" target="_blank" rel="noopener" class="social-card" style="--card-glow:#5865F2">
+      <svg class="social-card__icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 5.4a17.7 17.7 0 0 0-4.4-1.4l-.2.4c1.6.4 2.6.9 3.6 1.6-3.9-1.9-9.6-1.9-13.4 0 1-.7 2.1-1.3 3.6-1.6l-.2-.4c-1.5.3-3 .8-4.4 1.4C2.3 9.7 1.6 13.8 2 17.9a17.9 17.9 0 0 0 5.4 2.7c.4-.6.8-1.2 1.1-1.9-.6-.2-1.2-.5-1.7-.9l.4-.3c3.3 1.5 6.9 1.5 10.2 0l.4.3c-.5.4-1.1.7-1.7.9.3.7.7 1.3 1.1 1.9a17.9 17.9 0 0 0 5.4-2.7c.5-4.7-.7-8.8-2.3-12.5ZM9 15.3c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>
+      <h3>Discord</h3>
+      <p>Chat with members, get event pings, and share tracks.</p>
+      <span class="arrow">Join our server →</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ EVENTS ============ -->
+<section id="events">
+  <div class="eyebrow reveal">Upcoming</div>
+  <h2 class="section-title reveal">Club events.</h2>
+  <p class="section-sub reveal">View our latest upcoming events including our shows and workshops.</p>
+
+  <div class="events-grid reveal-stagger">
+    <!-- EDIT: duplicate this block per event, swap image src, date, name, location -->
+    <a href="#" class="event-card">
+      <img class="event-card__poster" src="https://media.discordapp.net/attachments/1099804871756099604/1499149256886583407/PARADIGM_SHIFT_1.jpg?ex=6a59428b&is=6a57f10b&hm=4131dba7314188ded37a9f29ac43384c7497cb5b6722c2858c4b4a25587efb2a&=&format=webp&width=928&height=1160" alt="Event poster placeholder">
+      <div class="event-card__body">
+        <div class="event-card__date">May 2 · 8PM-1AM</div>
+        <div class="event-card__name">Paradigm Shift</div>
+        <div class="event-card__loc">Jedass Cafe</div>
+      </div>
+    </a>
+    <a href="#" class="event-card">
+      <img class="event-card__poster" src="Screenshot 2026-07-16 000448.png" alt="Event poster placeholder">
+      <div class="event-card__body">
+        <div class="event-card__date">Apr 28 · 6-7PM</div>
+        <div class="event-card__name">Music Production Workshop</div>
+        <div class="event-card__loc">Pamplin 1010</div>
+      </div>
+    </a>
+    <a href="#" class="event-card">
+      <img class="event-card__poster" src="https://media.discordapp.net/attachments/1099804871756099604/1488178612141162556/ELECTION_MEETING.png?ex=6a598f16&is=6a583d96&hm=7b00e3b87b61747b16e35f29839aadcd063ca393f880e569cc6884a98eb36555&=&format=webp&quality=lossless&width=1032&height=1032" alt="Event poster placeholder">
+      <div class="event-card__body">
+        <div class="event-card__date">Apr 1 · 6-7PM</div>
+        <div class="event-card__name">Election Meeting</div>
+        <div class="event-card__loc">McBryde 321</div>
+      </div>
+    </a>
+    <a href="#" class="event-card">
+      <img class="event-card__poster" src="https://media.discordapp.net/attachments/1099804871756099604/1483516188276560073/TIPEdmClub.jpg?ex=6a59139d&is=6a57c21d&hm=1d41f233b13841b792e12ad91bd053f4e89f0e247e0d77ded3359a9fcafaf6bf&=&format=webp&width=1032&height=1376" alt="Event poster placeholder">
+      <div class="event-card__body">
+        <div class="event-card__date">Mar 20 · 8PM-1AM</div>
+        <div class="event-card__name">Treble in Paradise</div>
+        <div class="event-card__loc">The Boardwalk</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ EXEC BOARD ============ -->
+<section id="board">
+  <div class="eyebrow reveal">Executive Board</div>
+  <h2 class="section-title reveal">Meet the board.</h2>
+  <p class="section-sub reveal">Keeping the club alive with enthusiasm and collaboration.</p>
+
+  <div class="board-grid reveal-stagger">
+    <!-- EDIT: duplicate per officer, swap photo src, name, role -->
+    <div class="board-card">
+      <div class="board-card__photo-wrap">
+        <img class="board-card__photo" src="Screenshot 2026-07-16 000839.png" alt="President headshot placeholder">
+      </div>
+      <div class="board-card__name">Maxim Dierickx<br>"Sinverze"</div>
+      <div class="board-card__role">President</div>
+    </div>
+    <div class="board-card">
+      <div class="board-card__photo-wrap">
+        <img class="board-card__photo" src="Screenshot 2026-07-16 001715.png" alt="Vice President headshot placeholder">
+      </div>
+      <div class="board-card__name">John Bedeian<br>"Hovanez"</div>
+      <div class="board-card__role">Vice President</div>
+    </div>
+    <div class="board-card">
+      <div class="board-card__photo-wrap">
+        <img class="board-card__photo" src="Screenshot 2026-07-16 000910.png" alt="Events Director headshot placeholder">
+      </div>
+      <div class="board-card__name">John Williamson<br>"Jakid"</div>
+      <div class="board-card__role">Treasurer</div>
+    </div>
+    <div class="board-card">
+      <div class="board-card__photo-wrap">
+        <img class="board-card__photo" src="Screenshot 2026-07-16 000919.png" alt="Treasurer headshot placeholder">
+      </div>
+      <div class="board-card__name">Aritro Sengupta<br>"Ari"</div>
+      <div class="board-card__role">Social Chair</div>
+    </div>
+    <div class="board-card">
+      <div class="board-card__photo-wrap">
+        <img class="board-card__photo" src="Screenshot 2026-07-16 000932.png" alt="Marketing Lead headshot placeholder">
+      </div>
+      <div class="board-card__name">Sophia Fulton<br>"Sofasux"</div>
+      <div class="board-card__role">Event Coordinator</div>
+    </div>
+    <div class="board-card">
+      <div class="board-card__photo-wrap">
+        <img class="board-card__photo" src="Screenshot 2026-07-16 001504.png" alt="Treasurer headshot placeholder">
+      </div>
+      <div class="board-card__name">Levi Bowman<br>"Beaux"</div>
+      <div class="board-card__role">Equipment Manager</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RELEASES ============ -->
+<section id="releases">
+  <div class="eyebrow reveal">Fresh IDs</div>
+  <h2 class="section-title reveal">New releases from our members.</h2>
+  <p class="section-sub reveal">Original tracks and sets made by club members. Show your support.</p>
+
+  <div class="release-list reveal-stagger">
+    <!-- EDIT: replace these rows with real SoundCloud embeds — see note below -->
+    <div class="release-row">
+      <div class="release-row__num">01</div>
+      <img class="release-row__art" src="https://picsum.photos/seed/track1/100/100" alt="">
+      <div class="release-row__meta">
+        <div class="release-row__title">Midnight Frequency</div>
+        <div class="release-row__artist">DJ Kairos</div>
+      </div>
+      <div class="release-row__play">▶</div>
+    </div>
+    <div class="release-row">
+      <div class="release-row__num">02</div>
+      <img class="release-row__art" src="https://picsum.photos/seed/track2/100/100" alt="">
+      <div class="release-row__meta">
+        <div class="release-row__title">Afterglow (Club Edit)</div>
+        <div class="release-row__artist">Nova Rae</div>
+      </div>
+      <div class="release-row__play">▶</div>
+    </div>
+    <div class="release-row">
+      <div class="release-row__num">03</div>
+      <img class="release-row__art" src="https://picsum.photos/seed/track3/100/100" alt="">
+      <div class="release-row__meta">
+        <div class="release-row__title">Static Bloom</div>
+        <div class="release-row__artist">rrhythm</div>
+      </div>
+      <div class="release-row__play">▶</div>
+    </div>
+  </div>
+
+  <div class="soundcloud-embed-note">
+    To make these rows actually play audio, replace a row's content with a real SoundCloud
+    embed, e.g. <code>&lt;iframe width="100%" height="80"
+    src="https://w.soundcloud.com/player/?url=YOUR_TRACK_URL"&gt;&lt;/iframe&gt;</code> —
+    grab the embed URL from SoundCloud's "Share → Embed" option on any track.
+  </div>
+</section>
+
+<!-- ============ JOIN ============ -->
+<section class="join" id="join">
+  <div class="eyebrow reveal" style="justify-content:center;">Membership</div>
+  <h2 class="join__title reveal">Come make <span class="accent">noise</span> with us.</h2>
+  <p class="join__sub reveal">No experience needed, just show up. Sign up through GobblerConnect to get on the list for meetings and events.</p>
+  <!-- EDIT: replace href below with your actual GobblerConnect org page URL -->
+  <a href="https://gobblerconnect.vt.edu/organization/edmclubatvt" target="_blank" rel="noopener" class="btn btn--solid reveal">Join on GobblerConnect →</a>
+</section>
+
+<footer>
+  <div>© <span id="year"></span> EDM CLub at Virginia Tech</div>
+  <div>Built by the club, for the club.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---------- Scroll reveal ---------- */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15, rootMargin:'0px 0px -8% 0px'});
+  revealEls.forEach(el=>io.observe(el));
+
+  /* ---------- Pulse rail progress ---------- */
+  const fill = document.getElementById('pulseFill');
+  const dot = document.getElementById('pulseDot');
+  function updateRail(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    fill.style.height = (pct*100) + '%';
+    dot.style.top = (pct*100) + '%';
+  }
+  window.addEventListener('scroll', updateRail, {passive:true});
+  updateRail();
+
+  /* ---------- Ambient drifting neon background ---------- */
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr;
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio||1, 2);
+    w = canvas.width = window.innerWidth * dpr;
+    h = canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth+'px';
+    canvas.style.height = window.innerHeight+'px';
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const blobs = [
+    {color:'rgba(255,46,146,0.30)', x:0.25, y:0.3, r:0.35, sx:0.00011, sy:0.00016, phase:0},
+    {color:'rgba(34,230,255,0.24)', x:0.7, y:0.55, r:0.4, sx:0.00014, sy:0.0001, phase:2},
+    {color:'rgba(138,63,252,0.28)', x:0.5, y:0.75, r:0.32, sx:0.00009, sy:0.00013, phase:4},
+    {color:'rgba(212,255,63,0.10)', x:0.85, y:0.2, r:0.28, sx:0.00013, sy:0.00012, phase:6}
+  ];
+
+  let scrollFactor = 0;
+  window.addEventListener('scroll', ()=>{ scrollFactor = window.scrollY; }, {passive:true});
+
+  function draw(t){
+    ctx.clearRect(0,0,w,h);
+    blobs.forEach(b=>{
+      const drift = prefersReduced ? 0 : t;
+      const bx = (b.x + Math.sin(drift*b.sx + b.phase)*0.12) * w;
+      const by = (b.y + Math.cos(drift*b.sy + b.phase)*0.10) * h + (scrollFactor*0.03*dpr % h);
+      const radius = b.r * Math.max(w,h);
+      const grad = ctx.createRadialGradient(bx,by,0,bx,by,radius);
+      grad.addColorStop(0,b.color);
+      grad.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(bx,by,radius,0,Math.PI*2);
+      ctx.fill();
+    });
+    if(!prefersReduced){
+      requestAnimationFrame(draw);
+    }
+  }
+  requestAnimationFrame(draw);
+  if(prefersReduced){ draw(0); }
+</script>
+
+</body>
+</html>

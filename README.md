@@ -1,0 +1,26 @@
+# EDM Club at Virginia Tech
+
+React + Vite conversion of the supplied HTML. Original HTML files are retained as reference.
+
+## Run locally
+
+Requires Node.js 18+ (Node 22 recommended).
+
+```sh
+npm install
+npm run dev
+```
+
+Open the local URL printed by Vite. Create a production build with `npm run build`, or serve that build with `npm run preview`.
+
+## Edit content
+
+Update `src/data.js` for social links, membership, events, board members, and releases. Styles are in `src/styles.css`; page sections are in `src/components/Sections.jsx`.
+
+The supplied logo and six matching board graphics are copied into `public/assets`, so the site does not depend on files outside this project.
+
+Event dates and venues are preserved from the HTML. Since the dates have no year, the section presents them as highlights. Original event images were missing local screenshots or temporary Discord URLs; local text posters are used until you set each event's `poster` path. Set an event's `url` to link its card to an event page.
+
+Release titles from the HTML are sample content labeled Preview. Set each release's `url` to its actual listening link and replace sample title/artist information. SoundCloud track URLs automatically render an embedded player. Set `artwork` to a local asset path if available.
+
+The ambient canvas, scroll reveals, and progress rail use React effects with cleanup, including reduced-motion support. Navigation adapts to mobile screens and supports keyboard dismissal.
