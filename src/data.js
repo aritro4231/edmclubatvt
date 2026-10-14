@@ -8,13 +8,13 @@ export const club = {
   instagramUrl: 'https://www.instagram.com/edmclubatvt/',
 };
 
-// Ari plays public likes; the other DJs play their recommendation stations.
+// Ari plays public likes, Sinverze plays uploads, and the other DJs play stations.
 export const radioStations = [
   { id: 'ari', name: 'Ari', image: '/assets/ari-updated.png', kind: 'likes', url: 'https://soundcloud.com/ari-364456121/likes' },
   { id: 'beaux', name: 'Beaux', image: '/assets/levi.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1380249472' },
   { id: 'hovanez', name: 'Hovanez', image: '/assets/john-bedeian.png', url: 'https://soundcloud.com/discover/sets/artist-stations:263550940' },
   { id: 'sofasux', name: 'Sofasux', image: '/assets/sophia.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1099633732' },
-  { id: 'sinverze', name: 'Sinverze', image: '/assets/maxim.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1067107096' },
+  { id: 'sinverze', name: 'Sinverze', image: '/assets/maxim.png', kind: 'uploads', url: 'https://soundcloud.com/sinverze/tracks' },
 ];
 
 export const socials = [

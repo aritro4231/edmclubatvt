@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseStationPage, parseLikesPage, parsePublicTrackPage, createStationService } from '../server/stations.js';
+import { parseStationPage, parseLikesPage, parseUploadsPage, parsePublicTrackPage, createStationService } from '../server/stations.js';
 import { musicLink, releasesFromMessages, createReleaseService, discordSource } from '../server/releases.js';
 
 function stationHtml(ids = [11, 22, 33], artistId = '1380249472') {
@@ -35,8 +35,8 @@ function likesHtml(paths = ['/first/liked', '/second/liked'], userId = 142028639
     </section></article></noscript>`;
 }
 
-function trackHtml(id, url) {
-  return `<script>window.__sc_hydration = ${JSON.stringify([{ hydratable: 'sound', data: { id, kind: 'track', permalink_url: url } }])};</script>`;
+function trackHtml(id, url, artistId) {
+  return `<script>window.__sc_hydration = ${JSON.stringify([{ hydratable: 'sound', data: { id, kind: 'track', permalink_url: url, user: { id: artistId } } }])};</script>`;
 }
 
 test('public likes parser validates the owner and keeps only unique liked track links in order', () => {
@@ -75,6 +75,47 @@ test('Ari plays and refreshes public likes, preserving likes during fetch failur
   assert.deepEqual(fallback.tracks, first.tracks);
   const saved = await createStationService(async () => { throw new Error('Offline'); })('ari');
   assert.equal(saved.kind, 'likes');
+  assert.equal(saved.sourceUrl, first.sourceUrl);
+});
+
+function uploadsHtml(paths = ['/sinverze/first', '/sinverze/second'], userId = 1067107096) {
+  return `<script>window.__sc_hydration = ${JSON.stringify([{ hydratable: 'user', data: { id: userId, permalink: 'sinverze' } }])};</script>
+    <a itemprop="url" href="/sinverze/outside">Not in the upload section</a>
+    <noscript><article><section><h2>SINVERZE’s tracks</h2>
+    ${paths.map(path => `<article itemtype="http://schema.org/MusicRecording"><h2><a itemprop="url" href="${path}">Track</a></h2></article>`).join('')}
+    </section></article></noscript>`;
+}
+
+test('upload parser validates the profile and excludes other artists and playlists', () => {
+  assert.deepEqual(parseUploadsPage(uploadsHtml(['/sinverze/second', '/sinverze/first', '/other/track', '/sinverze/sets/playlist', '/sinverze/first']), '1067107096'), ['https://soundcloud.com/sinverze/second', 'https://soundcloud.com/sinverze/first']);
+  assert.throws(() => parseUploadsPage(uploadsHtml([], 999), '1067107096'), /does not match/);
+  const url = 'https://soundcloud.com/sinverze/first';
+  assert.throws(() => parsePublicTrackPage(trackHtml(11, url, 999), url, '1067107096'), /does not match/);
+  assert.equal(parsePublicTrackPage(trackHtml(11, url, 1067107096), url, '1067107096').id, '11');
+});
+
+test('Sinverze plays only verified uploads and retains uploads during an outage', async () => {
+  let time = 0, calls = 0, failing = false;
+  const service = createStationService(async url => {
+    calls++;
+    if (failing) throw new Error('Offline');
+    if (url.endsWith('/tracks')) return new Response(uploadsHtml(['/sinverze/second', '/sinverze/wrong-owner', '/sinverze/first']));
+    return new Response(trackHtml(url.endsWith('/second') ? 22 : 11, url, url.endsWith('/wrong-owner') ? 999 : 1067107096));
+  }, () => time);
+  const first = await service('sinverze');
+  assert.equal(first.kind, 'uploads');
+  assert.equal(first.sourceUrl, 'https://soundcloud.com/sinverze/tracks');
+  assert.deepEqual(first.tracks.map(t => t.id), ['22', '11']);
+  await service('sinverze');
+  assert.equal(calls, 4);
+  time = 610000;
+  failing = true;
+  const fallback = await service('sinverze');
+  assert.equal(fallback.kind, 'uploads');
+  assert.equal(fallback.stale, true);
+  assert.deepEqual(fallback.tracks, first.tracks);
+  const saved = await createStationService(async () => { throw new Error('Offline'); })('sinverze');
+  assert.equal(saved.kind, 'uploads');
   assert.equal(saved.sourceUrl, first.sourceUrl);
 });
 

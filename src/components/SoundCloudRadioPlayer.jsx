@@ -135,9 +135,9 @@ export default function SoundCloudRadioPlayer({ station, queue, index, total }) 
   return <div id="radio-panel" className="radio-panel" role="tabpanel" aria-labelledby={`radio-tab-${station.id}`} tabIndex={0}>
     <img className="radio-artwork" src={station.image} alt={`${station.name} EDM Club member graphic`} loading="lazy" width="1000" height="1000" />
     <div className="radio-details">
-      <div className="radio-details__topline"><span>{queue.kind === 'likes' ? 'Public likes' : 'Recommendation station'}</span><span>CH. {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span></div>
+      <div className="radio-details__topline"><span>{queue.kind === 'likes' ? 'Public likes' : queue.kind === 'uploads' ? 'Artist uploads' : 'Recommendation station'}</span><span>CH. {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span></div>
       <h3 className="radio-name">{station.name}<span>Radio</span></h3>
-      <p className="radio-description">{queue.kind === 'likes' ? `${queue.tracks.length} recent public tracks liked by ${station.name} on SoundCloud.` : `SoundCloud’s artist station based on ${station.name}. ${queue.tracks.length} tracks, including related artists.`}</p>
+      <p className="radio-description">{queue.kind === 'likes' ? `${queue.tracks.length} recent public tracks liked by ${station.name} on SoundCloud.` : queue.kind === 'uploads' ? `${queue.tracks.length} recent tracks uploaded by ${station.name} on SoundCloud.` : `SoundCloud’s artist station based on ${station.name}. ${queue.tracks.length} tracks, including related artists.`}</p>
       <div className="radio-transport">
         <button type="button" className="btn btn--solid radio-play" disabled={!ready || Boolean(error)} onClick={() => widget.current?.toggle()} aria-label={`${playing ? 'Pause' : 'Play'} ${station.name} Radio`}>
           <span aria-hidden="true">{playing ? 'Ⅱ' : '▶'}</span>{!ready ? 'Loading player…' : playing ? 'Pause' : 'Play'}
