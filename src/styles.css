@@ -108,7 +108,7 @@ section:not(.hero) { border-top: 1px solid var(--line); }
 .release-entry { min-width: 0; border-bottom: 1px solid var(--line); }
 .release-row { display: flex; align-items: center; gap: 24px; padding: 24px 0; }
 .release-row__num { font-family: var(--mono); font-size: 13px; color: var(--muted); width: 26px; flex-shrink: 0; }
-.release-art, .release-row__art { width: 56px; height: 56px; flex-shrink: 0; filter: grayscale(1); }
+.release-art, .release-row__art { width: 56px; height: 56px; flex-shrink: 0; }
 .release-art { display: grid; place-items: center; font-size: 24px; border: 1px solid var(--line); background: repeating-linear-gradient(45deg, #262626 0 1px, #191919 1px 5px); }
 .release-row__meta { flex: 1; min-width: 0; }
 .release-row__title { font-family: var(--display); font-size: 14px; font-weight: 600; letter-spacing: -.03em; line-height: 1.5; }
