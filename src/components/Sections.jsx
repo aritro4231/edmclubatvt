@@ -92,7 +92,7 @@ export function Forms() {
 }
 
 export function Join() {
-  return <section className="join" id="join"><div className="eyebrow reveal" style={{ justifyContent: 'center' }}>Membership</div><h2 className="join__title reveal">Come make <span className="accent">noise</span> with us.</h2><p className="join__sub reveal">No experience needed, just show up. Sign up through GobblerConnect to get on the list for meetings and events.</p><ExternalLink href={club.joinUrl} className="btn btn--solid reveal">Join on GobblerConnect <span aria-hidden="true">↗</span></ExternalLink></section>;
+  return <section className="join" id="join"><div className="eyebrow reveal" style={{ justifyContent: 'center' }}>Membership</div><h2 className="join__title reveal">Come make <span className="accent">noise</span> with us.</h2><p className="join__sub reveal">No experience needed. Join our Discord to meet the community, share tracks, and get event updates. Sign up on GobblerConnect for official club membership.</p><div className="join__actions reveal"><ExternalLink href={club.discordUrl} className="btn btn--solid">Join our Discord <span aria-hidden="true">↗</span></ExternalLink><ExternalLink href={club.joinUrl} className="btn btn--ghost">Join on GobblerConnect <span aria-hidden="true">↗</span></ExternalLink></div></section>;
 }
 
 export function Footer() {

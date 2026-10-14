@@ -129,6 +129,7 @@ section:not(.hero) { border-top: 1px solid var(--line); }
 .join__title .accent { color: transparent; -webkit-text-stroke: 1px var(--white); }
 .join__sub { color: var(--muted); font-size: 16px; max-width: 50ch; margin: 0 auto 36px; }
 .join .btn { padding: 18px 30px; }
+.join__actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
 footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; color: var(--muted); font-family: var(--mono); font-size: 12px; }
 @media (max-width: 1100px) {
   nav.links { gap: 18px; }
@@ -182,6 +183,7 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
   .release-status { padding: 5px 7px; font-size: 12px; }
   .join { padding: 72px 24px 80px; }
   .join__sub { font-size: 14px; }
+  .join__actions .btn { width: 100%; max-width: 360px; padding: 16px 20px; }
 }
 @media (max-width: 440px) {
   .social-grid, .events-grid { grid-template-columns: 1fr; }
