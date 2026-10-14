@@ -33,7 +33,7 @@ export function Hero() {
         <a className="hero__radio-link" href="#radio">Tune into Club Radio <span aria-hidden="true">↓</span></a>
       </div>
     </div>
-    <a href="#socials" className="scroll-cue"><span>Enter the scene</span><span aria-hidden="true">↓</span></a>
+    <a href="#events" className="scroll-cue"><span>Enter the scene</span><span aria-hidden="true">↓</span></a>
   </section>;
 }
 

@@ -27,7 +27,7 @@ export default function Header() {
     </a>
     <button ref={toggle} type="button" className="menu-toggle" aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpen(!open)}>{open ? 'Close ×' : 'Menu ☰'}</button>
     <nav id="main-navigation" className={`links ${open ? 'links--open' : ''}`} aria-label="Main navigation">
-      {[['radio', 'Radio'], ['events', 'Events'], ['board', 'Exec Board'], ['releases', 'Releases'], ['forms', 'Forms'], ['join', 'Join']].map(([id, label]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}
+      {[['events', 'Events'], ['radio', 'Radio'], ['releases', 'Releases'], ['board', 'Board'], ['forms', 'Forms'], ['join', 'Join'], ['socials', 'Socials']].map(([id, label]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}
     </nav>
   </header>;
 }

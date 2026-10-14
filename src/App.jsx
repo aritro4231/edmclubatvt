@@ -10,7 +10,7 @@ export default function App() {
     <a className="skip-link" href="#main">Skip to content</a>
     <AmbientBackground />
     <Header />
-    <main id="main"><Hero /><ClubRadio /><Socials /><Events /><Board /><Releases /><Forms /><Join /></main>
+    <main id="main"><Hero /><Events /><ClubRadio /><Releases /><Board /><Forms /><Join /><Socials /></main>
     <Footer />
     <ScrollEffects />
   </>;

@@ -137,7 +137,7 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
   .brand__text { font-size: 13px; }
   .brand__text small { font-size: 12px; }
   .menu-toggle { display: block; }
-  nav.links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; padding: 12px 24px; background: #191919; border-bottom: 1px solid var(--line); }
+  nav.links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; padding: 12px 24px; background: #191919; border-bottom: 1px solid var(--line); max-height: calc(100dvh - 84px); overflow-y: auto; }
   nav.links.links--open { display: flex; }
   nav.links a { padding: 14px 0; }
   section { padding: 68px 24px; }
@@ -221,7 +221,7 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
 .radio-player { display: block; grid-column: 1 / -1; width: 100%; height: 350px; border: 0; }
 @media (max-width: 900px) {
   .menu-toggle { display: block; }
-  nav.links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; padding: 12px 24px; background: #191919; border-bottom: 1px solid var(--line); }
+  nav.links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; padding: 12px 24px; background: #191919; border-bottom: 1px solid var(--line); max-height: calc(100dvh - 84px); overflow-y: auto; }
   nav.links.links--open { display: flex; }
   nav.links a { padding: 14px 0; }
   .radio-station { gap: 8px; font-size: 13px; }
