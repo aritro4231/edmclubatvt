@@ -48,18 +48,14 @@ section:not(.hero) { border-top: 1px solid var(--line); }
 .reveal-stagger.in-view > *:nth-child(6) { transition-delay: .3s; }
 .hero { min-height: 100svh; padding-top: 132px; padding-bottom: 48px; display: flex; flex-direction: column; align-items: stretch; }
 .hero__index { display: flex; justify-content: space-between; gap: 24px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: 34px; }
-.hero__title { width: 100%; max-width: 1100px; margin: 0 auto; line-height: 0; }
-/* Frame the visible logo, leaving the PNG's transparent export margins outside the view. */
-.hero__logo-frame { display: block; position: relative; overflow: hidden; width: 100%; aspect-ratio: 1690 / 630; }
-.hero__logo { position: absolute; width: 177.515%; max-width: none; height: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-.hero__bottom { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 80px; margin: 48px auto 36px; width: 100%; max-width: 900px; }
+.hero__bottom { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 80px; margin: auto; padding: 48px 0; width: 100%; max-width: 900px; }
 .hero__art { display: flex; flex-direction: column; align-items: center; }
 .club-seal { width: 266px; height: 266px; position: relative; display: grid; place-items: center; }
 .club-seal img { width: 220px; mix-blend-mode: screen; }
 .club-seal__stars { position: absolute; inset: 0; }
 .club-seal__stars span { position: absolute; left: 50%; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px; font-size: 24px; line-height: 1; text-align: center; transform: rotate(var(--angle)) translateY(-122px) rotate(calc(-1 * var(--angle))); }
 .hero__art-caption { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-top: 22px; }
-.hero__eyebrow { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin-bottom: 20px; }
+.hero__eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 400; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin-bottom: 20px; }
 .hero__tag { max-width: 42ch; font-size: 18px; line-height: 1.7; }
 .hero__cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .btn { display: inline-flex; justify-content: space-between; align-items: center; gap: 24px; padding: 15px 22px; font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; border: 1px solid var(--white); transition: background .2s, color .2s; }
@@ -144,7 +140,7 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
   .hero { padding-top: 108px; padding-bottom: 32px; }
   .hero__index { font-size: 8px; margin-bottom: 40px; }
   .hero__index span:last-child { display: none; }
-  .hero__bottom { grid-template-columns: 1fr; gap: 40px; margin: 42px auto; }
+  .hero__bottom { grid-template-columns: 1fr; gap: 40px; padding: 42px 0; }
   .club-seal { width: 230px; height: 230px; }
   .club-seal img { width: 185px; }
   .club-seal__stars span { font-size: 19px; transform: rotate(var(--angle)) translateY(-104px) rotate(calc(-1 * var(--angle))); }

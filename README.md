@@ -17,7 +17,7 @@ Open the local URL printed by Vite. Create a production build with `npm run buil
 
 Update `src/data.js` for social links, membership, events, board members, and releases. Styles are in `src/styles.css`; page sections are in `src/components/Sections.jsx`.
 
-The supplied logos and six matching board graphics are copied into `public/assets`, so the site does not depend on files outside this project. The chrome logo is used for the main homepage heading. Its transparent export margins are framed with CSS, preserving the original PNG.
+The supplied logos and six matching board graphics are copied into `public/assets`, so the site does not depend on files outside this project. The homepage uses the smaller club emblem; the chrome logo is retained as an unused asset.
 
 Event dates and venues are preserved from the HTML. Since the dates have no year, the section presents them as highlights. Original event images were missing local screenshots or temporary Discord URLs; local text posters are used until you set each event's `poster` path. Set an event's `url` to link its card to an event page.
 

@@ -18,7 +18,6 @@ function AssetImage({ src, fallback, ...props }) {
 export function Hero() {
   return <section className="hero" id="top">
     <div className="hero__index"><span>Blacksburg, VA / Virginia Tech</span><span>Underground Renaissance</span></div>
-    <h1 className="hero__title"><span className="hero__logo-frame"><img className="hero__logo" src={club.heroLogo} alt="EDM Club at Virginia Tech" width="3000" height="2000" fetchPriority="high" /></span></h1>
     <div className="hero__bottom">
       <div className="hero__art">
         <div className="club-seal">
@@ -28,7 +27,7 @@ export function Hero() {
         <span className="hero__art-caption">One community. All frequencies.</span>
       </div>
       <div className="hero__content">
-        <div className="hero__eyebrow">Bringing PLUR to Blacksburg</div>
+        <h1 className="hero__eyebrow">Bringing PLUR to Blacksburg</h1>
         <p className="hero__tag">Hosting shows, workshops, and elevating the EDM scene in Blacksburg. Will you rave with us?</p>
         <div className="hero__cta-row"><a href="#join" className="btn btn--solid">Join the club <span aria-hidden="true">↗</span></a><a href="#events" className="btn btn--ghost">Explore our events <span aria-hidden="true">↓</span></a></div>
       </div>
