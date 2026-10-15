@@ -20,7 +20,7 @@ function StationChannel({ station, index, total }) {
   }, [station.id, attempt]);
   if (queue) return <SoundCloudRadioPlayer station={station} queue={queue} index={index} total={total} />;
   return <div id="radio-panel" className="radio-loading" role="tabpanel" aria-labelledby={`radio-tab-${station.id}`}>
-    <p role="status">{error ? 'This station is temporarily unavailable.' : `Loading ${station.name}’s ${station.kind === 'likes' ? 'liked tracks' : station.kind === 'uploads' ? 'uploaded tracks' : 'recommendation station'}…`}</p>
+    <p role="status">{error ? 'This station is temporarily unavailable.' : `Loading ${station.name}’s ${station.kind === 'likes' ? 'liked tracks' : station.kind === 'uploads' ? 'uploaded tracks' : station.kind === 'playlist' ? 'playlist' : 'recommendation station'}…`}</p>
     {error && <button type="button" className="btn btn--ghost" onClick={() => setAttempt(attempt + 1)}>Retry station</button>}
   </div>;
 }

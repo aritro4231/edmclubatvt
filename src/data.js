@@ -13,7 +13,7 @@ export const radioStations = [
   { id: 'ari', name: 'Ari', image: '/assets/ari-updated.png', kind: 'likes', url: 'https://soundcloud.com/ari-364456121/likes' },
   { id: 'beaux', name: 'Beaux', image: '/assets/levi.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1380249472' },
   { id: 'hovanez', name: 'Hovanez', image: '/assets/john-bedeian.png', url: 'https://soundcloud.com/discover/sets/artist-stations:263550940' },
-  { id: 'sofasux', name: 'Sofasux', image: '/assets/sophia.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1099633732' },
+  { id: 'sofasux', name: 'Sofasux', image: '/assets/sophia.png', kind: 'playlist', url: 'https://on.soundcloud.com/OXj5Ga7r5mEDKKhv3w' },
   { id: 'sinverze', name: 'Sinverze', image: '/assets/maxim.png', kind: 'uploads', url: 'https://soundcloud.com/sinverze/tracks' },
 ];
 

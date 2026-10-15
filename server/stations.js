@@ -1,8 +1,9 @@
 import snapshots from '../src/station-snapshots.json' with { type: 'json' };
 
-const artistIds = { ari: '1420286394', beaux: '1380249472', hovanez: '263550940', sofasux: '1099633732', sinverze: '1067107096' };
+const artistIds = { ari: '1420286394', beaux: '1380249472', hovanez: '263550940', sofasux: '554506587', sinverze: '1067107096' };
 const ariLikesUrl = 'https://soundcloud.com/ari-364456121/likes';
 const sinverzeTracksUrl = 'https://soundcloud.com/sinverze/tracks';
+const sofasuxPlaylistUrl = 'https://soundcloud.com/sophia-fulton-555030662/sets/edm-26-1';
 
 // Read only public page data. No client IDs, tokens, or browser sessions are used.
 function hydrationFromPage(html) {
@@ -33,6 +34,17 @@ export function parseStationPage(html, expectedArtistId) {
   }).filter(track => /^\d+$/.test(track.id));
   if (!tracks.length) throw new Error('Station contains no playable tracks');
   return { title: playlist.title || 'Artist station', tracks };
+}
+
+export function parsePlaylistPage(html, expectedPlaylistId) {
+  const playlist = hydrationFromPage(html).find(item => item.hydratable === 'playlist')?.data;
+  if (String(playlist?.id) !== expectedPlaylistId || !playlist.tracks?.length || playlist.sharing !== 'public') throw new Error('Playlist does not match');
+  const tracks = playlist.tracks.map(track => {
+    const id = String(track.id || track.urn?.split(':').at(-1) || '');
+    return { id, embedUrl: `https://api.soundcloud.com/tracks/${id}` };
+  }).filter(track => /^\d+$/.test(track.id));
+  if (!tracks.length) throw new Error('Playlist contains no playable tracks');
+  return { title: playlist.title || 'SoundCloud playlist', kind: 'playlist', tracks };
 }
 
 export function parseLikesPage(html, expectedArtistId) {
@@ -122,7 +134,7 @@ export function createStationService(fetchImpl = fetch, now = Date.now) {
     if (cached && now() - cached.time < 600000) return cached.data;
     if (pending.has(id)) return pending.get(id);
     const request = (async () => {
-      const sourceUrl = id === 'ari' ? ariLikesUrl : id === 'sinverze' ? sinverzeTracksUrl : `https://soundcloud.com/discover/sets/artist-stations:${artistIds[id]}`;
+      const sourceUrl = id === 'ari' ? ariLikesUrl : id === 'sinverze' ? sinverzeTracksUrl : id === 'sofasux' ? sofasuxPlaylistUrl : `https://soundcloud.com/discover/sets/artist-stations:${artistIds[id]}`;
       try {
         let parsed;
         if (id === 'ari') parsed = await fetchAriLikes(fetchImpl);
@@ -130,13 +142,14 @@ export function createStationService(fetchImpl = fetch, now = Date.now) {
         else {
           const response = await fetchImpl(sourceUrl, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(8000) });
           if (!response.ok) throw new Error('Station request failed');
-          parsed = parseStationPage(await response.text(), artistIds[id]);
+          const html = await response.text();
+          parsed = id === 'sofasux' ? parsePlaylistPage(html, '2290045188') : parseStationPage(html, artistIds[id]);
         }
         const data = { id, sourceUrl, ...parsed, fetchedAt: new Date(now()).toISOString(), stale: false };
         cache.set(id, { time: now(), data });
         return data;
       } catch {
-        // Keep each channel's source: likes, uploads, or a recommendation station.
+        // Keep each channel's source: likes, uploads, a playlist, or a recommendation station.
         const data = { ...(cached?.data || snapshots[id]), stale: true };
         cache.set(id, { time: now() - 540000, data });
         return data;

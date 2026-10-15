@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseStationPage, parseLikesPage, parseUploadsPage, parsePublicTrackPage, createStationService } from '../server/stations.js';
+import { parseStationPage, parsePlaylistPage, parseLikesPage, parseUploadsPage, parsePublicTrackPage, createStationService } from '../server/stations.js';
 import { musicLink, releasesFromMessages, createReleaseService, discordSource } from '../server/releases.js';
 
 function stationHtml(ids = [11, 22, 33], artistId = '1380249472') {
@@ -34,6 +34,31 @@ function likesHtml(paths = ['/first/liked', '/second/liked'], userId = 142028639
     ${paths.map(path => `<article><h2><a itemprop="url" href="${path}">Track</a></h2></article>`).join('')}
     </section></article></noscript>`;
 }
+
+test('Sofasux plays the shared playlist in order and preserves it during outages', async () => {
+  const playlistHtml = (id = 2290045188, sharing = 'public') => `<script>window.__sc_hydration = ${JSON.stringify([{ hydratable: 'playlist', data: { id, sharing, title: 'edm 26.1', tracks: [{ id: 22 }, { id: 11 }, { urn: 'soundcloud:tracks:33' }] } }])};</script>`;
+  assert.throws(() => parsePlaylistPage(playlistHtml(123), '2290045188'), /does not match/);
+  assert.throws(() => parsePlaylistPage(playlistHtml(2290045188, 'private'), '2290045188'), /does not match/);
+  let time = 0, failing = false;
+  const service = createStationService(async url => {
+    assert.equal(url, 'https://soundcloud.com/sophia-fulton-555030662/sets/edm-26-1');
+    if (failing) throw new Error('Offline');
+    return new Response(playlistHtml());
+  }, () => time);
+  const first = await service('sofasux');
+  assert.equal(first.stale, false);
+  assert.equal(first.kind, 'playlist');
+  assert.equal(first.title, 'edm 26.1');
+  assert.deepEqual(first.tracks.map(track => track.id), ['22', '11', '33']);
+  time = 610000;
+  failing = true;
+  assert.deepEqual((await service('sofasux')).tracks, first.tracks);
+  const saved = await createStationService(async () => { throw new Error('Offline'); })('sofasux');
+  assert.equal(saved.kind, 'playlist');
+  assert.equal(saved.sourceUrl, first.sourceUrl);
+  assert.equal(saved.tracks.length, 29);
+  assert.equal(saved.tracks[0].id, '2283765944');
+});
 
 function trackHtml(id, url, artistId) {
   return `<script>window.__sc_hydration = ${JSON.stringify([{ hydratable: 'sound', data: { id, kind: 'track', permalink_url: url, user: { id: artistId } } }])};</script>`;
