@@ -73,38 +73,44 @@ test('public likes parser validates the owner and keeps only unique liked track 
   assert.throws(() => parsePublicTrackPage(trackHtml(123, 'https://soundcloud.com/artist/upload'), url), /does not match/);
 });
 
-test('Ari plays and refreshes public likes, preserving likes during fetch failures', async () => {
+for (const [id, artistId, sourceUrl] of [
+  ['ari', 1420286394, 'https://soundcloud.com/ari-364456121/likes'],
+  ['hovanez', 263550940, 'https://soundcloud.com/user-439559931/likes'],
+]) test(`${id} plays and refreshes public likes, preserving likes during fetch failures`, async () => {
   let time = 0, calls = 0, failing = false;
   const service = createStationService(async url => {
     calls++;
     if (failing) throw new Error('Offline');
-    if (url.endsWith('/likes')) return new Response(likesHtml(['/second/liked', '/missing/liked', '/first/liked']));
+    if (url.endsWith('/likes')) {
+      assert.equal(url, sourceUrl);
+      return new Response(likesHtml(['/second/liked', '/missing/liked', '/first/liked'], artistId));
+    }
     if (url.endsWith('/missing/liked')) return new Response('', { status: 404 });
     return new Response(trackHtml(url.includes('/second/') ? 22 : 11, url));
   }, () => time);
-  const first = await service('ari');
+  const first = await service(id);
   assert.equal(first.kind, 'likes');
   assert.equal(first.stale, false);
-  assert.equal(first.sourceUrl, 'https://soundcloud.com/ari-364456121/likes');
+  assert.equal(first.sourceUrl, sourceUrl);
   assert.deepEqual(first.tracks.map(t => t.id), ['22', '11']);
-  await service('ari');
+  await service(id);
   assert.equal(calls, 4);
   time = 610000;
-  await service('ari');
+  await service(id);
   assert.equal(calls, 8);
   failing = true;
   time = 1220000;
-  const fallback = await service('ari');
+  const fallback = await service(id);
   assert.equal(fallback.kind, 'likes');
   assert.equal(fallback.stale, true);
   assert.deepEqual(fallback.tracks, first.tracks);
-  const saved = await createStationService(async () => { throw new Error('Offline'); })('ari');
+  const saved = await createStationService(async () => { throw new Error('Offline'); })(id);
   assert.equal(saved.kind, 'likes');
   assert.equal(saved.sourceUrl, first.sourceUrl);
 });
 
-function uploadsHtml(paths = ['/sinverze/first', '/sinverze/second'], userId = 1067107096) {
-  return `<script>window.__sc_hydration = ${JSON.stringify([{ hydratable: 'user', data: { id: userId, permalink: 'sinverze' } }])};</script>
+function uploadsHtml(paths = ['/sinverze/first', '/sinverze/second'], userId = 1067107096, permalink = 'sinverze') {
+  return `<script>window.__sc_hydration = ${JSON.stringify([{ hydratable: 'user', data: { id: userId, permalink } }])};</script>
     <a itemprop="url" href="/sinverze/outside">Not in the upload section</a>
     <noscript><article><section><h2>SINVERZE’s tracks</h2>
     ${paths.map(path => `<article itemtype="http://schema.org/MusicRecording"><h2><a itemprop="url" href="${path}">Track</a></h2></article>`).join('')}
@@ -119,27 +125,34 @@ test('upload parser validates the profile and excludes other artists and playlis
   assert.equal(parsePublicTrackPage(trackHtml(11, url, 1067107096), url, '1067107096').id, '11');
 });
 
-test('Sinverze plays only verified uploads and retains uploads during an outage', async () => {
+for (const [id, artistId, permalink] of [
+  ['sinverze', 1067107096, 'sinverze'],
+  ['jakid', 1228348348, 'jak1d'],
+]) test(`${id} plays only verified uploads and retains uploads during an outage`, async () => {
   let time = 0, calls = 0, failing = false;
   const service = createStationService(async url => {
     calls++;
     if (failing) throw new Error('Offline');
-    if (url.endsWith('/tracks')) return new Response(uploadsHtml(['/sinverze/second', '/sinverze/wrong-owner', '/sinverze/first']));
-    return new Response(trackHtml(url.endsWith('/second') ? 22 : 11, url, url.endsWith('/wrong-owner') ? 999 : 1067107096));
+    if (url.endsWith('/tracks')) {
+      assert.equal(url, `https://soundcloud.com/${permalink}/tracks`);
+      return new Response(uploadsHtml([`/${permalink}/second`, `/${permalink}/wrong-owner`, `/${permalink}/first`], artistId, permalink));
+    }
+    return new Response(trackHtml(url.endsWith('/second') ? 22 : 11, url, url.endsWith('/wrong-owner') ? 999 : artistId));
   }, () => time);
-  const first = await service('sinverze');
+  const first = await service(id);
   assert.equal(first.kind, 'uploads');
-  assert.equal(first.sourceUrl, 'https://soundcloud.com/sinverze/tracks');
+  assert.equal(first.stale, false);
+  assert.equal(first.sourceUrl, `https://soundcloud.com/${permalink}/tracks`);
   assert.deepEqual(first.tracks.map(t => t.id), ['22', '11']);
-  await service('sinverze');
+  await service(id);
   assert.equal(calls, 4);
   time = 610000;
   failing = true;
-  const fallback = await service('sinverze');
+  const fallback = await service(id);
   assert.equal(fallback.kind, 'uploads');
   assert.equal(fallback.stale, true);
   assert.deepEqual(fallback.tracks, first.tracks);
-  const saved = await createStationService(async () => { throw new Error('Offline'); })('sinverze');
+  const saved = await createStationService(async () => { throw new Error('Offline'); })(id);
   assert.equal(saved.kind, 'uploads');
   assert.equal(saved.sourceUrl, first.sourceUrl);
 });

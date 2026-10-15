@@ -8,13 +8,14 @@ export const club = {
   instagramUrl: 'https://www.instagram.com/edmclubatvt/',
 };
 
-// Ari plays public likes, Sinverze plays uploads, and the other DJs play stations.
+// Each DJ plays public likes, uploads, a curated playlist, or a recommendation station.
 export const radioStations = [
   { id: 'ari', name: 'Ari', image: '/assets/ari-updated.png', kind: 'likes', url: 'https://soundcloud.com/ari-364456121/likes' },
   { id: 'beaux', name: 'Beaux', image: '/assets/levi.png', url: 'https://soundcloud.com/discover/sets/artist-stations:1380249472' },
-  { id: 'hovanez', name: 'Hovanez', image: '/assets/john-bedeian.png', url: 'https://soundcloud.com/discover/sets/artist-stations:263550940' },
+  { id: 'hovanez', name: 'Hovanez', image: '/assets/john-bedeian.png', kind: 'likes', url: 'https://soundcloud.com/user-439559931/likes' },
   { id: 'sofasux', name: 'Sofasux', image: '/assets/sophia.png', kind: 'playlist', url: 'https://on.soundcloud.com/OXj5Ga7r5mEDKKhv3w' },
   { id: 'sinverze', name: 'Sinverze', image: '/assets/maxim.png', kind: 'uploads', url: 'https://soundcloud.com/sinverze/tracks' },
+  { id: 'jakid', name: 'Jakid', image: '/assets/john-williamson.png', kind: 'uploads', url: 'https://soundcloud.com/jak1d/tracks' },
 ];
 
 export const socials = [

@@ -1,8 +1,14 @@
 import snapshots from '../src/station-snapshots.json' with { type: 'json' };
 
-const artistIds = { ari: '1420286394', beaux: '1380249472', hovanez: '263550940', sofasux: '554506587', sinverze: '1067107096' };
-const ariLikesUrl = 'https://soundcloud.com/ari-364456121/likes';
-const sinverzeTracksUrl = 'https://soundcloud.com/sinverze/tracks';
+const artistIds = { ari: '1420286394', beaux: '1380249472', hovanez: '263550940', sofasux: '554506587', sinverze: '1067107096', jakid: '1228348348' };
+const likesSources = {
+  ari: { url: 'https://soundcloud.com/ari-364456121/likes', title: 'Ari’s likes' },
+  hovanez: { url: 'https://soundcloud.com/user-439559931/likes', title: 'Hovanez’s likes' },
+};
+const uploadsSources = {
+  sinverze: { url: 'https://soundcloud.com/sinverze/tracks', title: 'Sinverze’s tracks' },
+  jakid: { url: 'https://soundcloud.com/jak1d/tracks', title: 'Jakid’s tracks' },
+};
 const sofasuxPlaylistUrl = 'https://soundcloud.com/sophia-fulton-555030662/sets/edm-26-1';
 
 // Read only public page data. No client IDs, tokens, or browser sessions are used.
@@ -97,10 +103,10 @@ export function parsePublicTrackPage(html, expectedUrl, expectedArtistId) {
   return { id, embedUrl: `https://api.soundcloud.com/tracks/${id}` };
 }
 
-async function fetchAriLikes(fetchImpl) {
-  const response = await fetchImpl(ariLikesUrl, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(6000) });
+async function fetchLikes(id, fetchImpl) {
+  const response = await fetchImpl(likesSources[id].url, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(6000) });
   if (!response.ok) throw new Error('Likes request failed');
-  const urls = parseLikesPage(await response.text(), artistIds.ari);
+  const urls = parseLikesPage(await response.text(), artistIds[id]);
   const results = await Promise.allSettled(urls.map(async url => {
     const track = await fetchImpl(url, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(6000) });
     if (!track.ok) throw new Error('Liked track unavailable');
@@ -108,21 +114,21 @@ async function fetchAriLikes(fetchImpl) {
   }));
   const tracks = results.filter(result => result.status === 'fulfilled').map(result => result.value);
   if (!tracks.length) throw new Error('No playable public likes available');
-  return { title: 'Ari’s likes', kind: 'likes', tracks };
+  return { title: likesSources[id].title, kind: 'likes', tracks };
 }
 
-async function fetchSinverzeUploads(fetchImpl) {
-  const response = await fetchImpl(sinverzeTracksUrl, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(6000) });
+async function fetchUploads(id, fetchImpl) {
+  const response = await fetchImpl(uploadsSources[id].url, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(6000) });
   if (!response.ok) throw new Error('Uploads request failed');
-  const urls = parseUploadsPage(await response.text(), artistIds.sinverze);
+  const urls = parseUploadsPage(await response.text(), artistIds[id]);
   const results = await Promise.allSettled(urls.map(async url => {
     const track = await fetchImpl(url, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(6000) });
     if (!track.ok) throw new Error('Uploaded track unavailable');
-    return parsePublicTrackPage(await track.text(), url, artistIds.sinverze);
+    return parsePublicTrackPage(await track.text(), url, artistIds[id]);
   }));
   const tracks = results.filter(result => result.status === 'fulfilled').map(result => result.value);
   if (!tracks.length) throw new Error('No playable public uploads available');
-  return { title: 'Sinverze’s tracks', kind: 'uploads', tracks };
+  return { title: uploadsSources[id].title, kind: 'uploads', tracks };
 }
 
 export function createStationService(fetchImpl = fetch, now = Date.now) {
@@ -134,11 +140,11 @@ export function createStationService(fetchImpl = fetch, now = Date.now) {
     if (cached && now() - cached.time < 600000) return cached.data;
     if (pending.has(id)) return pending.get(id);
     const request = (async () => {
-      const sourceUrl = id === 'ari' ? ariLikesUrl : id === 'sinverze' ? sinverzeTracksUrl : id === 'sofasux' ? sofasuxPlaylistUrl : `https://soundcloud.com/discover/sets/artist-stations:${artistIds[id]}`;
+      const sourceUrl = likesSources[id]?.url || uploadsSources[id]?.url || (id === 'sofasux' ? sofasuxPlaylistUrl : `https://soundcloud.com/discover/sets/artist-stations:${artistIds[id]}`);
       try {
         let parsed;
-        if (id === 'ari') parsed = await fetchAriLikes(fetchImpl);
-        else if (id === 'sinverze') parsed = await fetchSinverzeUploads(fetchImpl);
+        if (likesSources[id]) parsed = await fetchLikes(id, fetchImpl);
+        else if (uploadsSources[id]) parsed = await fetchUploads(id, fetchImpl);
         else {
           const response = await fetchImpl(sourceUrl, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(8000) });
           if (!response.ok) throw new Error('Station request failed');

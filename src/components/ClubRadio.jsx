@@ -45,7 +45,7 @@ export default function ClubRadio() {
   return <section id="radio" className="club-radio">
     <div className="eyebrow reveal">Tune in</div>
     <h2 className="section-title reveal">Club Radio.</h2>
-    <p className="section-sub reveal">Five DJs. Five frequencies. Choose a station and explore the sound.</p>
+    <p className="section-sub reveal">Six DJs. Six frequencies. Choose a station and explore the sound.</p>
 
     <div className="radio-console reveal">
       <div className="radio-stations" role="tablist" aria-label="Choose a Club Radio station">

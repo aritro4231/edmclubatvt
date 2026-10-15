@@ -207,7 +207,7 @@ footer { position: relative; padding: 28px clamp(24px, 6vw, 90px); border-top: 1
 .hero__radio-link { display: inline-flex; align-items: center; gap: 18px; font-family: var(--mono); font-size: 13px; margin-top: 24px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 .hero__radio-link:hover { border-color: var(--white); }
 .radio-console { border: 1px solid var(--line); background: rgba(0,0,0,.12); }
-.radio-stations { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.radio-stations { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
 .radio-station { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 68px; padding: 16px 12px; font-family: var(--mono); font-size: 14px; text-transform: uppercase; background: transparent; border: 0; border-right: 1px solid var(--line); transition: background .2s, color .2s; }
 .radio-station:last-child { border-right: 0; }
 .radio-station[aria-selected="true"] { color: var(--void); background: var(--white); }
